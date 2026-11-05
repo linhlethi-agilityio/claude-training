@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`ErrorBoundary renders with default props 1`] = `
+<div>
+  <section
+    class="flex h-screen flex-col items-center justify-center bg-white text-center"
+  >
+    <h2
+      class="text-4xl font-bold text-gray-900"
+    >
+      Something went wrong!
+    </h2>
+    <p
+      class="mt-2 text-sm text-gray-500"
+    >
+      Something went wrong
+    </p>
+    <div
+      class="mt-8 flex gap-4"
+    >
+      <button
+        class="inline-flex items-center justify-center gap-2 rounded-md transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none bg-lime-600 text-white hover:bg-lime-700 h-10 px-4 text-sm"
+      >
+        Try again
+      </button>
+      <a
+        href="/"
+      >
+        <button
+          class="inline-flex items-center justify-center gap-2 rounded-md transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none border border-lime-600 bg-white text-lime-600 hover:bg-lime-50 h-10 px-4 text-sm"
+        >
+          Go Home
+        </button>
+      </a>
+    </div>
+  </section>
+</div>
+`;

@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`ConfirmModal renders with default props 1`] = `
+<div>
+  <div
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+  >
+    <div
+      class="relative w-full max-w-md rounded-xl bg-white p-6 shadow-lg"
+    >
+      <div
+        class="mb-4 flex items-center justify-between"
+      >
+        <h2
+          class="text-lg font-bold text-gray-900"
+        >
+          Delete Item
+        </h2>
+        <button
+          class="inline-flex items-center justify-center gap-2 rounded-md transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none bg-transparent text-tx-primary hover:bg-white hover:text-tx-primary text-sm h-6 w-6 p-0"
+        >
+          <svg
+            fill="none"
+            height="16"
+            viewBox="0 0 24 24"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"
+              fill="#6B7280"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="mt-6 flex justify-end gap-3"
+      >
+        <button
+          class="inline-flex items-center justify-center gap-2 rounded-md transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none border border-lime-600 bg-white text-lime-600 hover:bg-lime-50 h-10 px-4 text-sm"
+        >
+          Cancel
+        </button>
+        <button
+          class="inline-flex items-center justify-center gap-2 rounded-md transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none bg-lime-600 text-white hover:bg-lime-700 h-10 px-4 text-sm"
+        >
+          Confirm
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

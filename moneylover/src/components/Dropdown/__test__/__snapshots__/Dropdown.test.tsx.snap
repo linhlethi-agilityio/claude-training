@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Dropdown renders with default props 1`] = `
+<div>
+  <div
+    class="relative"
+    tabindex="0"
+  >
+    <div
+      class="flex cursor-pointer items-center justify-between rounded-lg border border-gray-300 px-3 py-2"
+    >
+      <div
+        class="flex items-center gap-3"
+      >
+        <span
+          class="text-sm text-gray-400"
+        >
+          Select an option...
+        </span>
+      </div>
+      <svg
+        class="transition-transform"
+        fill="none"
+        height="16"
+        viewBox="0 0 24 24"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+          fill="#d1d5db"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;

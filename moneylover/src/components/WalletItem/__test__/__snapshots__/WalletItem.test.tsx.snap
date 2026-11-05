@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`WalletItem renders with default props 1`] = `
+<div>
+  <div
+    class="flex items-center gap-3 border-b border-gray-100 px-4 py-3 last:border-b-0 cursor-pointer hover:bg-gray-50"
+  >
+    <div
+      class="relative flex shrink-0 overflow-hidden rounded-full h-8 w-8"
+    >
+      <img
+        alt=""
+        class="object-cover"
+        data-nimg="fill"
+        decoding="async"
+        loading="lazy"
+        sizes="32px"
+        src="http://localhost/_next/image?url=%2Ftransaction.png&w=3840&q=75"
+        srcset="/_next/image?url=%2Ftransaction.png&w=32&q=75 32w, /_next/image?url=%2Ftransaction.png&w=48&q=75 48w, /_next/image?url=%2Ftransaction.png&w=64&q=75 64w, /_next/image?url=%2Ftransaction.png&w=96&q=75 96w, /_next/image?url=%2Ftransaction.png&w=128&q=75 128w, /_next/image?url=%2Ftransaction.png&w=256&q=75 256w, /_next/image?url=%2Ftransaction.png&w=384&q=75 384w, /_next/image?url=%2Ftransaction.png&w=640&q=75 640w, /_next/image?url=%2Ftransaction.png&w=750&q=75 750w, /_next/image?url=%2Ftransaction.png&w=828&q=75 828w, /_next/image?url=%2Ftransaction.png&w=1080&q=75 1080w, /_next/image?url=%2Ftransaction.png&w=1200&q=75 1200w, /_next/image?url=%2Ftransaction.png&w=1920&q=75 1920w, /_next/image?url=%2Ftransaction.png&w=2048&q=75 2048w, /_next/image?url=%2Ftransaction.png&w=3840&q=75 3840w"
+        style="position: absolute; height: 100%; width: 100%; left: 0px; top: 0px; right: 0px; bottom: 0px; color: transparent;"
+      />
+    </div>
+    <div
+      class="flex-1"
+    >
+      <p
+        class="text-sm font-medium text-gray-900"
+      >
+        Cash
+      </p>
+      <p
+        class="text-xs text-gray-500"
+      >
+        1,000,000 đ
+      </p>
+    </div>
+  </div>
+</div>
+`;

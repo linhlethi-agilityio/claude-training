@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`CategoryInfo renders with default props 1`] = `
+<div>
+  <div
+    class="flex items-center gap-3"
+  >
+    <div
+      class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gray-200 text-sm font-medium text-gray-500"
+    >
+      F
+    </div>
+    <div>
+      <p
+        class="text-sm font-medium text-gray-900"
+      >
+        Food & Beverage
+      </p>
+    </div>
+  </div>
+</div>
+`;

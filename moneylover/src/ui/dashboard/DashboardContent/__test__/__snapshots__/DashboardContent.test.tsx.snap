@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`DashboardContent should render Header and children with data and match snapshot 1`] = `
+<div>
+  <div
+    class="flex flex-1 flex-col"
+  >
+    <div
+      data-testid="header"
+    />
+    <main
+      class="flex-1 bg-gray-50"
+    >
+      <div>
+        page content
+      </div>
+    </main>
+  </div>
+</div>
+`;

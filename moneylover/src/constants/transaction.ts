@@ -1,0 +1,1 @@
+export const RECENT_TRANSACTION_LIMIT = 5;

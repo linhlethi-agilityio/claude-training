@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Header renders with default props 1`] = `
+<div>
+  <header
+    class="sticky top-0 z-10 flex items-center justify-between border-b border-gray-200 bg-white px-6 py-3 gap-4"
+  >
+    <div
+      class="relative flex cursor-pointer items-center gap-3"
+    >
+      <div
+        class="flex items-center gap-3"
+      >
+        <div
+          class="relative flex shrink-0 overflow-hidden rounded-full h-8 w-8"
+        >
+          <img
+            alt=""
+            class="object-cover"
+            data-nimg="fill"
+            decoding="async"
+            loading="lazy"
+            sizes="32px"
+            src="http://localhost/_next/image?url=%2Ftransaction.png&w=3840&q=75"
+            srcset="/_next/image?url=%2Ftransaction.png&w=32&q=75 32w, /_next/image?url=%2Ftransaction.png&w=48&q=75 48w, /_next/image?url=%2Ftransaction.png&w=64&q=75 64w, /_next/image?url=%2Ftransaction.png&w=96&q=75 96w, /_next/image?url=%2Ftransaction.png&w=128&q=75 128w, /_next/image?url=%2Ftransaction.png&w=256&q=75 256w, /_next/image?url=%2Ftransaction.png&w=384&q=75 384w, /_next/image?url=%2Ftransaction.png&w=640&q=75 640w, /_next/image?url=%2Ftransaction.png&w=750&q=75 750w, /_next/image?url=%2Ftransaction.png&w=828&q=75 828w, /_next/image?url=%2Ftransaction.png&w=1080&q=75 1080w, /_next/image?url=%2Ftransaction.png&w=1200&q=75 1200w, /_next/image?url=%2Ftransaction.png&w=1920&q=75 1920w, /_next/image?url=%2Ftransaction.png&w=2048&q=75 2048w, /_next/image?url=%2Ftransaction.png&w=3840&q=75 3840w"
+            style="position: absolute; height: 100%; width: 100%; left: 0px; top: 0px; right: 0px; bottom: 0px; color: transparent;"
+          />
+        </div>
+        <div>
+          <div
+            class="flex items-center gap-1"
+          >
+            <p
+              class="text-sm font-medium text-gray-800"
+            >
+              Total
+            </p>
+            <svg
+              class="rotate-90"
+              fill="none"
+              height="16"
+              viewBox="0 0 24 24"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+                fill="#d1d5db"
+              />
+            </svg>
+          </div>
+          <p
+            class="text-sm font-semibold text-green-600"
+          >
+            +6,000,200 đ
+          </p>
+        </div>
+      </div>
+    </div>
+    <button
+      class="inline-flex items-center justify-center gap-2 rounded-md transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none bg-lime-600 text-white hover:bg-lime-700 h-10 px-4 text-sm shrink-0 uppercase"
+    >
+      Add Transaction
+    </button>
+  </header>
+</div>
+`;

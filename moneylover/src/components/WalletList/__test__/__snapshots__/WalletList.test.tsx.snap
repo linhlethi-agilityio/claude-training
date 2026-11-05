@@ -1,0 +1,275 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`WalletList renders with default props 1`] = `
+<div>
+  <div
+    class="absolute left-0 top-full z-50 mt-2 min-w-64 min-h-80 rounded-lg border border-gray-200 bg-white py-1 shadow-lg flex flex-col overflow-visible"
+  >
+    <div
+      class="flex items-center gap-3 border-b border-gray-100 px-4 py-3 last:border-b-0 cursor-pointer hover:bg-gray-50"
+    >
+      <div
+        class="relative flex shrink-0 overflow-hidden rounded-full h-8 w-8"
+      >
+        <img
+          alt=""
+          class="object-cover"
+          data-nimg="fill"
+          decoding="async"
+          loading="lazy"
+          sizes="32px"
+          src="http://localhost/_next/image?url=%2Ftransaction.png&w=3840&q=75"
+          srcset="/_next/image?url=%2Ftransaction.png&w=32&q=75 32w, /_next/image?url=%2Ftransaction.png&w=48&q=75 48w, /_next/image?url=%2Ftransaction.png&w=64&q=75 64w, /_next/image?url=%2Ftransaction.png&w=96&q=75 96w, /_next/image?url=%2Ftransaction.png&w=128&q=75 128w, /_next/image?url=%2Ftransaction.png&w=256&q=75 256w, /_next/image?url=%2Ftransaction.png&w=384&q=75 384w, /_next/image?url=%2Ftransaction.png&w=640&q=75 640w, /_next/image?url=%2Ftransaction.png&w=750&q=75 750w, /_next/image?url=%2Ftransaction.png&w=828&q=75 828w, /_next/image?url=%2Ftransaction.png&w=1080&q=75 1080w, /_next/image?url=%2Ftransaction.png&w=1200&q=75 1200w, /_next/image?url=%2Ftransaction.png&w=1920&q=75 1920w, /_next/image?url=%2Ftransaction.png&w=2048&q=75 2048w, /_next/image?url=%2Ftransaction.png&w=3840&q=75 3840w"
+          style="position: absolute; height: 100%; width: 100%; left: 0px; top: 0px; right: 0px; bottom: 0px; color: transparent;"
+        />
+      </div>
+      <div
+        class="flex-1"
+      >
+        <p
+          class="text-sm font-medium text-gray-900"
+        >
+          Total
+        </p>
+        <p
+          class="text-xs text-gray-500"
+        >
+          6,200,000 đ
+        </p>
+      </div>
+      <svg
+        fill="none"
+        height="16"
+        viewBox="0 0 24 24"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z"
+          fill="#84cc16"
+        />
+      </svg>
+    </div>
+    <p
+      class="px-4 py-2 text-xs font-medium uppercase text-gray-400"
+    >
+      Included in Total
+    </p>
+    <div
+      class="scrollbar-thin"
+    >
+      <div
+        class="flex items-center gap-3 border-b border-gray-100 px-4 py-3 last:border-b-0 cursor-pointer hover:bg-gray-50"
+      >
+        <div
+          class="relative flex shrink-0 overflow-hidden rounded-full h-8 w-8"
+        >
+          <img
+            alt=""
+            class="object-cover"
+            data-nimg="fill"
+            decoding="async"
+            loading="lazy"
+            sizes="32px"
+            src="http://localhost/_next/image?url=%2Ftransaction.png&w=3840&q=75"
+            srcset="/_next/image?url=%2Ftransaction.png&w=32&q=75 32w, /_next/image?url=%2Ftransaction.png&w=48&q=75 48w, /_next/image?url=%2Ftransaction.png&w=64&q=75 64w, /_next/image?url=%2Ftransaction.png&w=96&q=75 96w, /_next/image?url=%2Ftransaction.png&w=128&q=75 128w, /_next/image?url=%2Ftransaction.png&w=256&q=75 256w, /_next/image?url=%2Ftransaction.png&w=384&q=75 384w, /_next/image?url=%2Ftransaction.png&w=640&q=75 640w, /_next/image?url=%2Ftransaction.png&w=750&q=75 750w, /_next/image?url=%2Ftransaction.png&w=828&q=75 828w, /_next/image?url=%2Ftransaction.png&w=1080&q=75 1080w, /_next/image?url=%2Ftransaction.png&w=1200&q=75 1200w, /_next/image?url=%2Ftransaction.png&w=1920&q=75 1920w, /_next/image?url=%2Ftransaction.png&w=2048&q=75 2048w, /_next/image?url=%2Ftransaction.png&w=3840&q=75 3840w"
+            style="position: absolute; height: 100%; width: 100%; left: 0px; top: 0px; right: 0px; bottom: 0px; color: transparent;"
+          />
+        </div>
+        <div
+          class="flex-1"
+        >
+          <p
+            class="text-sm font-medium text-gray-900"
+          >
+            Cash
+          </p>
+          <p
+            class="text-xs text-gray-500"
+          >
+            1,000,000 đ
+          </p>
+        </div>
+        <div
+          class="relative"
+        >
+          <button
+            class="inline-flex items-center justify-center gap-2 rounded-md transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none bg-transparent text-tx-primary hover:bg-white hover:text-tx-primary text-sm h-6 w-6 p-0"
+          >
+            <svg
+              fill="none"
+              height="20"
+              viewBox="0 0 24 24"
+              width="20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="12"
+                cy="5"
+                fill="#9CA3AF"
+                r="1.5"
+              />
+              <circle
+                cx="12"
+                cy="12"
+                fill="#9CA3AF"
+                r="1.5"
+              />
+              <circle
+                cx="12"
+                cy="19"
+                fill="#9CA3AF"
+                r="1.5"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div
+        class="flex items-center gap-3 border-b border-gray-100 px-4 py-3 last:border-b-0 cursor-pointer hover:bg-gray-50"
+      >
+        <div
+          class="relative flex shrink-0 overflow-hidden rounded-full h-8 w-8"
+        >
+          <img
+            alt=""
+            class="object-cover"
+            data-nimg="fill"
+            decoding="async"
+            loading="lazy"
+            sizes="32px"
+            src="http://localhost/_next/image?url=%2Ftransaction.png&w=3840&q=75"
+            srcset="/_next/image?url=%2Ftransaction.png&w=32&q=75 32w, /_next/image?url=%2Ftransaction.png&w=48&q=75 48w, /_next/image?url=%2Ftransaction.png&w=64&q=75 64w, /_next/image?url=%2Ftransaction.png&w=96&q=75 96w, /_next/image?url=%2Ftransaction.png&w=128&q=75 128w, /_next/image?url=%2Ftransaction.png&w=256&q=75 256w, /_next/image?url=%2Ftransaction.png&w=384&q=75 384w, /_next/image?url=%2Ftransaction.png&w=640&q=75 640w, /_next/image?url=%2Ftransaction.png&w=750&q=75 750w, /_next/image?url=%2Ftransaction.png&w=828&q=75 828w, /_next/image?url=%2Ftransaction.png&w=1080&q=75 1080w, /_next/image?url=%2Ftransaction.png&w=1200&q=75 1200w, /_next/image?url=%2Ftransaction.png&w=1920&q=75 1920w, /_next/image?url=%2Ftransaction.png&w=2048&q=75 2048w, /_next/image?url=%2Ftransaction.png&w=3840&q=75 3840w"
+            style="position: absolute; height: 100%; width: 100%; left: 0px; top: 0px; right: 0px; bottom: 0px; color: transparent;"
+          />
+        </div>
+        <div
+          class="flex-1"
+        >
+          <p
+            class="text-sm font-medium text-gray-900"
+          >
+            Bank Account
+          </p>
+          <p
+            class="text-xs text-gray-500"
+          >
+            5,000,000 đ
+          </p>
+        </div>
+        <div
+          class="relative"
+        >
+          <button
+            class="inline-flex items-center justify-center gap-2 rounded-md transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none bg-transparent text-tx-primary hover:bg-white hover:text-tx-primary text-sm h-6 w-6 p-0"
+          >
+            <svg
+              fill="none"
+              height="20"
+              viewBox="0 0 24 24"
+              width="20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="12"
+                cy="5"
+                fill="#9CA3AF"
+                r="1.5"
+              />
+              <circle
+                cx="12"
+                cy="12"
+                fill="#9CA3AF"
+                r="1.5"
+              />
+              <circle
+                cx="12"
+                cy="19"
+                fill="#9CA3AF"
+                r="1.5"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div
+        class="flex items-center gap-3 border-b border-gray-100 px-4 py-3 last:border-b-0 cursor-pointer hover:bg-gray-50"
+      >
+        <div
+          class="relative flex shrink-0 overflow-hidden rounded-full h-8 w-8"
+        >
+          <img
+            alt=""
+            class="object-cover"
+            data-nimg="fill"
+            decoding="async"
+            loading="lazy"
+            sizes="32px"
+            src="http://localhost/_next/image?url=%2Ftransaction.png&w=3840&q=75"
+            srcset="/_next/image?url=%2Ftransaction.png&w=32&q=75 32w, /_next/image?url=%2Ftransaction.png&w=48&q=75 48w, /_next/image?url=%2Ftransaction.png&w=64&q=75 64w, /_next/image?url=%2Ftransaction.png&w=96&q=75 96w, /_next/image?url=%2Ftransaction.png&w=128&q=75 128w, /_next/image?url=%2Ftransaction.png&w=256&q=75 256w, /_next/image?url=%2Ftransaction.png&w=384&q=75 384w, /_next/image?url=%2Ftransaction.png&w=640&q=75 640w, /_next/image?url=%2Ftransaction.png&w=750&q=75 750w, /_next/image?url=%2Ftransaction.png&w=828&q=75 828w, /_next/image?url=%2Ftransaction.png&w=1080&q=75 1080w, /_next/image?url=%2Ftransaction.png&w=1200&q=75 1200w, /_next/image?url=%2Ftransaction.png&w=1920&q=75 1920w, /_next/image?url=%2Ftransaction.png&w=2048&q=75 2048w, /_next/image?url=%2Ftransaction.png&w=3840&q=75 3840w"
+            style="position: absolute; height: 100%; width: 100%; left: 0px; top: 0px; right: 0px; bottom: 0px; color: transparent;"
+          />
+        </div>
+        <div
+          class="flex-1"
+        >
+          <p
+            class="text-sm font-medium text-gray-900"
+          >
+            Savings
+          </p>
+          <p
+            class="text-xs text-gray-500"
+          >
+            200 $
+          </p>
+        </div>
+        <div
+          class="relative"
+        >
+          <button
+            class="inline-flex items-center justify-center gap-2 rounded-md transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none bg-transparent text-tx-primary hover:bg-white hover:text-tx-primary text-sm h-6 w-6 p-0"
+          >
+            <svg
+              fill="none"
+              height="20"
+              viewBox="0 0 24 24"
+              width="20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="12"
+                cy="5"
+                fill="#9CA3AF"
+                r="1.5"
+              />
+              <circle
+                cx="12"
+                cy="12"
+                fill="#9CA3AF"
+                r="1.5"
+              />
+              <circle
+                cx="12"
+                cy="19"
+                fill="#9CA3AF"
+                r="1.5"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <button
+      class="inline-flex items-center transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none bg-transparent hover:bg-white h-10 mt-auto w-full justify-start gap-2 rounded-none px-4 py-3 text-sm font-medium text-lime-600 hover:text-lime-600"
+    >
+      <span
+        class="flex h-6 w-6 items-center justify-center rounded-full bg-lime-100 text-lime-600"
+      >
+        +
+      </span>
+      Add Wallet
+    </button>
+  </div>
+</div>
+`;

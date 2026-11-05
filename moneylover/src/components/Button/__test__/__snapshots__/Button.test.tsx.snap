@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Button renders with default props 1`] = `
+<div>
+  <button
+    class="inline-flex items-center justify-center gap-2 rounded-md transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none bg-lime-600 text-white hover:bg-lime-700 h-10 px-4 text-sm"
+  >
+    Click me
+  </button>
+</div>
+`;

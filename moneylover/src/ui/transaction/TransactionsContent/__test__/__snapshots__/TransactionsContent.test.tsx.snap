@@ -1,0 +1,275 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`TransactionsContent should render TransactionList with data and match snapshot 1`] = `
+<div>
+  <div
+    class="flex flex-col gap-4"
+  >
+    <div
+      class="rounded-lg border border-gray-200 bg-white"
+    >
+      <div
+        class="space-y-1 px-4 py-3"
+      >
+        <div
+          class="flex justify-between"
+        >
+          <p
+            class="text-sm text-gray-600"
+          >
+            Inflow
+          </p>
+          <p
+            class="text-sm font-medium text-blue-500"
+          >
+            1,000,000 đ
+          </p>
+        </div>
+        <div
+          class="flex justify-between"
+        >
+          <p
+            class="text-sm text-gray-600"
+          >
+            Outflow
+          </p>
+          <p
+            class="text-sm font-medium text-red-500"
+          >
+            -
+            500,000 đ
+          </p>
+        </div>
+        <div
+          class="flex justify-between border-t border-gray-100 pt-1"
+        >
+          <div />
+          <p
+            class="text-sm font-semibold text-gray-900"
+          >
+            +500,000 đ
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      class="rounded-lg border border-gray-200 bg-white"
+    >
+      <div
+        class="flex items-center gap-3 border-b border-gray-200 px-4 py-3"
+      >
+        <div
+          class="flex items-center gap-3"
+        >
+          <div
+            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gray-200 text-sm font-medium text-gray-500"
+          >
+            F
+          </div>
+          <div>
+            <p
+              class="text-sm font-medium text-gray-900"
+            >
+              Food & Beverage
+            </p>
+          </div>
+        </div>
+        <p
+          class="text-xs text-gray-400"
+        >
+          1
+           Transactions
+        </p>
+        <div
+          class="flex-1"
+        />
+        <p
+          class="text-sm font-semibold text-gray-900"
+        >
+          150,000 đ
+        </p>
+      </div>
+      <div
+        class="flex items-center gap-4 border-b border-gray-100 px-4 py-3 last:border-b-0 cursor-pointer"
+      >
+        <p
+          class="text-2xl font-light text-gray-400"
+        >
+          15
+        </p>
+        <div
+          class="flex-1"
+        >
+          <p
+            class="text-sm text-gray-700"
+          >
+            Friday, March 15, 2024
+          </p>
+          <p
+            class="text-xs text-gray-400"
+          >
+            Lunch
+          </p>
+        </div>
+        <p
+          class="text-sm font-medium text-red-500"
+        >
+          150,000 đ
+        </p>
+      </div>
+    </div>
+    <div
+      class="rounded-lg border border-gray-200 bg-white"
+    >
+      <div
+        class="flex items-center gap-3 border-b border-gray-200 px-4 py-3"
+      >
+        <div
+          class="flex items-center gap-3"
+        >
+          <div
+            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gray-200 text-sm font-medium text-gray-500"
+          >
+            T
+          </div>
+          <div>
+            <p
+              class="text-sm font-medium text-gray-900"
+            >
+              Transportation
+            </p>
+          </div>
+        </div>
+        <p
+          class="text-xs text-gray-400"
+        >
+          1
+           Transactions
+        </p>
+        <div
+          class="flex-1"
+        />
+        <p
+          class="text-sm font-semibold text-gray-900"
+        >
+          50,000 đ
+        </p>
+      </div>
+      <div
+        class="flex items-center gap-4 border-b border-gray-100 px-4 py-3 last:border-b-0 cursor-pointer"
+      >
+        <p
+          class="text-2xl font-light text-gray-400"
+        >
+          10
+        </p>
+        <div
+          class="flex-1"
+        >
+          <p
+            class="text-sm text-gray-700"
+          >
+            Sunday, March 10, 2024
+          </p>
+        </div>
+        <p
+          class="text-sm font-medium text-red-500"
+        >
+          50,000 đ
+        </p>
+      </div>
+    </div>
+    <div
+      class="rounded-lg border border-gray-200 bg-white"
+    >
+      <div
+        class="flex items-center gap-3 border-b border-gray-200 px-4 py-3"
+      >
+        <div
+          class="flex items-center gap-3"
+        >
+          <div
+            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gray-200 text-sm font-medium text-gray-500"
+          >
+            S
+          </div>
+          <div>
+            <p
+              class="text-sm font-medium text-gray-900"
+            >
+              Salary
+            </p>
+          </div>
+        </div>
+        <p
+          class="text-xs text-gray-400"
+        >
+          1
+           Transactions
+        </p>
+        <div
+          class="flex-1"
+        />
+        <p
+          class="text-sm font-semibold text-gray-900"
+        >
+          5,000,000 đ
+        </p>
+      </div>
+      <div
+        class="flex items-center gap-4 border-b border-gray-100 px-4 py-3 last:border-b-0 cursor-pointer"
+      >
+        <p
+          class="text-2xl font-light text-gray-400"
+        >
+          1
+        </p>
+        <div
+          class="flex-1"
+        >
+          <p
+            class="text-sm text-gray-700"
+          >
+            Friday, March 1, 2024
+          </p>
+          <p
+            class="text-xs text-gray-400"
+          >
+            Monthly salary
+          </p>
+        </div>
+        <p
+          class="text-sm font-medium text-blue-500"
+        >
+          5,000,000 đ
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`TransactionsContent should render TransactionList with empty data and match snapshot 1`] = `
+<div>
+  <div
+    class="flex flex-col items-center gap-3 py-12"
+  >
+    <img
+      alt="No transactions"
+      data-nimg="1"
+      decoding="async"
+      height="120"
+      loading="lazy"
+      src="/_next/image?url=%2Fno-transaction.png&w=256&q=75"
+      srcset="/_next/image?url=%2Fno-transaction.png&w=128&q=75 1x, /_next/image?url=%2Fno-transaction.png&w=256&q=75 2x"
+      style="color: transparent;"
+      width="120"
+    />
+    <p
+      class="text-sm text-gray-400"
+    >
+      No transactions
+    </p>
+  </div>
+</div>
+`;

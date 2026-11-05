@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`CategoryForm renders with default props 1`] = `
+<div>
+  <form
+    class="flex flex-col gap-4"
+  >
+    <div>
+      <label
+        class="mb-1 block text-xs text-gray-400"
+      >
+        Category Name
+      </label>
+      <div
+        class="relative"
+      >
+        <input
+          class="w-full rounded-lg border border-gray-400 px-3 py-2 text-sm text-gray-900 placeholder:text-gray-300 focus:border-lime-600 focus:outline-none disabled:cursor-not-allowed disabled:border-gray-200 disabled:opacity-50"
+          placeholder="e.g. Restaurant, Coffee"
+          value=""
+        />
+      </div>
+    </div>
+    <div>
+      <p
+        class="mb-1 text-xs text-gray-400"
+      >
+        Type
+      </p>
+      <div
+        class="flex gap-2"
+      >
+        <button
+          class="inline-flex items-center justify-center gap-2 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none hover:bg-white hover:text-tx-primary h-10 px-4 flex-1 rounded-lg border py-2 text-sm font-medium border-lime-600 bg-lime-50 text-lime-700"
+          type="button"
+        >
+          Expense
+        </button>
+        <button
+          class="inline-flex items-center justify-center gap-2 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none bg-transparent hover:bg-white hover:text-tx-primary h-10 px-4 flex-1 rounded-lg border py-2 text-sm font-medium border-gray-200 text-gray-500"
+          type="button"
+        >
+          Income
+        </button>
+      </div>
+    </div>
+    <div
+      class="relative"
+      tabindex="0"
+    >
+      <p
+        class="mb-1 text-xs text-gray-400"
+      >
+        Parent Category (optional)
+      </p>
+      <div
+        class="flex cursor-pointer items-center justify-between rounded-lg border border-gray-300 px-3 py-2"
+      >
+        <div
+          class="flex items-center gap-3"
+        >
+          <span
+            class="text-sm text-gray-400"
+          >
+            None (Parent category)
+          </span>
+        </div>
+        <svg
+          class="transition-transform"
+          fill="none"
+          height="16"
+          viewBox="0 0 24 24"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+            fill="#d1d5db"
+          />
+        </svg>
+      </div>
+    </div>
+    <button
+      class="inline-flex items-center justify-center gap-2 rounded-md transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none bg-lime-600 text-white hover:bg-lime-700 h-11 px-6 text-base w-full"
+      disabled=""
+      type="submit"
+    >
+      Submit
+    </button>
+  </form>
+</div>
+`;

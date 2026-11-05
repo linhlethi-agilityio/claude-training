@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`TransactionTabs renders with this month period 1`] = `
+<div>
+  <div
+    class="flex items-center rounded-lg border border-gray-200 bg-white"
+  >
+    <button
+      class="inline-flex items-center justify-center gap-2 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none bg-transparent hover:bg-white h-10 px-4 flex-1 rounded-none py-3 text-xs font-medium text-gray-400 hover:text-gray-600"
+    >
+      LAST MONTH
+    </button>
+    <button
+      class="inline-flex items-center justify-center gap-2 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none bg-transparent hover:bg-white h-10 px-4 flex-1 rounded-none py-3 text-xs font-medium border-b-2 border-lime-600 text-lime-600 hover:text-lime-600"
+    >
+      THIS MONTH
+    </button>
+    <button
+      class="inline-flex items-center justify-center gap-2 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none bg-transparent hover:bg-white h-10 px-4 flex-1 rounded-none py-3 text-xs font-medium text-gray-400 hover:text-gray-600"
+    >
+      FUTURE
+    </button>
+  </div>
+</div>
+`;

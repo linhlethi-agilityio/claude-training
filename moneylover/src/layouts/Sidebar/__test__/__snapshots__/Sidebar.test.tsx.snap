@@ -1,0 +1,153 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Sidebar renders with default props 1`] = `
+<div>
+  <aside
+    class="flex h-screen w-64 flex-col border-r border-gray-200 bg-white sticky top-0 overflow-hidden"
+  >
+    <div
+      class="flex flex-col items-center gap-2 border-b border-gray-200 py-6"
+    >
+      <div
+        class="relative flex shrink-0 overflow-hidden rounded-full h-14 w-14"
+      >
+        <img
+          alt=""
+          class="object-cover"
+          data-nimg="fill"
+          decoding="async"
+          loading="lazy"
+          sizes="56px"
+          src="http://localhost/_next/image?url=%2Fdefault-avatar.png&w=3840&q=75"
+          srcset="/_next/image?url=%2Fdefault-avatar.png&w=32&q=75 32w, /_next/image?url=%2Fdefault-avatar.png&w=48&q=75 48w, /_next/image?url=%2Fdefault-avatar.png&w=64&q=75 64w, /_next/image?url=%2Fdefault-avatar.png&w=96&q=75 96w, /_next/image?url=%2Fdefault-avatar.png&w=128&q=75 128w, /_next/image?url=%2Fdefault-avatar.png&w=256&q=75 256w, /_next/image?url=%2Fdefault-avatar.png&w=384&q=75 384w, /_next/image?url=%2Fdefault-avatar.png&w=640&q=75 640w, /_next/image?url=%2Fdefault-avatar.png&w=750&q=75 750w, /_next/image?url=%2Fdefault-avatar.png&w=828&q=75 828w, /_next/image?url=%2Fdefault-avatar.png&w=1080&q=75 1080w, /_next/image?url=%2Fdefault-avatar.png&w=1200&q=75 1200w, /_next/image?url=%2Fdefault-avatar.png&w=1920&q=75 1920w, /_next/image?url=%2Fdefault-avatar.png&w=2048&q=75 2048w, /_next/image?url=%2Fdefault-avatar.png&w=3840&q=75 3840w"
+          style="position: absolute; height: 100%; width: 100%; left: 0px; top: 0px; right: 0px; bottom: 0px; color: transparent;"
+        />
+      </div>
+      <div
+        class="text-center"
+      >
+        <p
+          class="text-xs text-gray-400"
+        >
+          test@example.com
+        </p>
+      </div>
+    </div>
+    <nav
+      class="flex flex-1 flex-col px-4 pt-4"
+    >
+      <a
+        class="flex items-center gap-3 border-b border-gray-200 px-3 py-4 text-sm transition-colors text-lime-600 font-medium"
+        href="/"
+      >
+        <svg
+          fill="none"
+          height="20"
+          viewBox="0 0 24 24"
+          width="20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"
+            fill="currentColor"
+          />
+        </svg>
+        <span
+          class="flex-1"
+        >
+          Dashboard
+        </span>
+        <svg
+          fill="none"
+          height="16"
+          viewBox="0 0 24 24"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+            fill="#d1d5db"
+          />
+        </svg>
+      </a>
+      <a
+        class="flex items-center gap-3 border-b border-gray-200 px-3 py-4 text-sm transition-colors text-gray-600 hover:bg-gray-50"
+        href="/transactions"
+      >
+        <svg
+          fill="none"
+          height="20"
+          viewBox="0 0 24 24"
+          width="20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M19 2H6c-1.206 0-3 .799-3 3v14c0 2.201 1.794 3 3 3h15v-2H6.012C5.55 19.988 5 19.806 5 19s.55-.988 1.012-1H21V4c0-1.103-.897-2-2-2Zm0 14H5V5c0-.806.55-.988 1-1h13v12Z"
+            fill="currentColor"
+          />
+        </svg>
+        <span
+          class="flex-1"
+        >
+          Transactions
+        </span>
+        <svg
+          fill="none"
+          height="16"
+          viewBox="0 0 24 24"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+            fill="#d1d5db"
+          />
+        </svg>
+      </a>
+      <a
+        class="flex items-center gap-3 border-b border-gray-200 px-3 py-4 text-sm transition-colors text-gray-600 hover:bg-gray-50"
+        href="/categories"
+      >
+        <svg
+          fill="none"
+          height="20"
+          viewBox="0 0 24 24"
+          width="20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M12 2l-5.5 9h11L12 2zm0 3.84L13.93 9h-3.87L12 5.84zM17.5 13c-2.49 0-4.5 2.01-4.5 4.5s2.01 4.5 4.5 4.5 4.5-2.01 4.5-4.5-2.01-4.5-4.5-4.5zm0 7c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5zM3 21.5h8v-8H3v8zm2-6h4v4H5v-4z"
+            fill="currentColor"
+          />
+        </svg>
+        <span
+          class="flex-1"
+        >
+          Categories
+        </span>
+        <svg
+          fill="none"
+          height="16"
+          viewBox="0 0 24 24"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+            fill="#d1d5db"
+          />
+        </svg>
+      </a>
+    </nav>
+    <div
+      class="border-t border-gray-200 p-4"
+    >
+      <button
+        class="inline-flex items-center gap-2 rounded-md transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none bg-transparent h-10 px-4 text-sm w-full justify-start text-red-500 hover:bg-red-50 hover:text-red-500"
+      >
+        Logout
+      </button>
+    </div>
+  </aside>
+</div>
+`;

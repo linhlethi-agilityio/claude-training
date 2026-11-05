@@ -1,0 +1,72 @@
+// Money Lover Database Schema
+// Docs: https://dbml.dbdiagram.io/docs
+// Link: https://dbdiagram.io/d/69cdd07078c6c4bc7ac49979
+
+Table users {
+  id uuid
+  email varchar
+  password varchar
+  created_at timestamp
+}
+
+Table wallets {
+  id uuid
+  user_id uuid
+  name varchar
+  currency varchar
+  balance bigint [default: 0]
+  created_at timestamp
+}
+
+Table categories {
+  id uuid
+  user_id uuid
+  name varchar
+  image_url varchar
+  type varchar [note: 'income or expense']
+}
+
+Table transactions {
+  id uuid
+  user_id uuid
+  wallet_id uuid
+  type varchar [note: 'income or expense']
+  category_id varchar
+  amount bigint
+  note text [default: '']
+  date timestamp
+  created_at timestamp
+}
+
+Ref: wallets.user_id > users.id
+Ref: categories.user_id > users.id
+Ref: transactions.user_id > users.id
+Ref: transactions.wallet_id > wallets.id
+Ref: transactions.category_id > categories.id
+
+// Sample data
+Records users(id, email, password) {
+  '1a2b3c', 'admin@gmail.com', '******'
+  '4d5e6f', 'user@gmail.com', '******'
+}
+
+Records wallets(id, user_id, name, currency, balance) {
+  'w001', '1a2b3c', 'Cash', 'VND', 5000000
+  'w002', '1a2b3c', 'Bank Account', 'VND', 20000000
+  'w003', '4d5e6f', 'Wallet', 'USD', 1000
+}
+
+Records categories(id, name, image_url, type) {
+  'c001', 'Food & Beverage', 'http://example.com', 'expense'
+  'c002', 'Transportation', 'http://example.com', 'expense'
+  'c003', 'Rentals', 'http://example.com', 'expense'
+  'c004', 'Water Bill', 'http://example.com', 'expense'
+  'c007', 'Salary', 'http://example.com', 'income'
+  'c008', 'Bonus', 'http://example.com', 'income'
+}
+
+Records transactions(id, user_id, wallet_id, type, category_id, amount, note, date) {
+  't001', '1a2b3c', 'w001', 'expense', 'c001', 50000, 'Lunch', '2026-04-01'
+  't002', '1a2b3c', 'w001', 'expense', 'c002', 30000, 'Grab', '2026-04-01'
+  't003', '1a2b3c', 'w002', 'income', 'c007', 15000000, 'Monthly salary', '2026-04-01'
+}

@@ -17,6 +17,20 @@ describe('parseNumber', () => {
   it('strips letters and symbols', () => {
     expect(parseNumber('$1.000abc')).toBe(1000);
   });
+
+  // ML-003: amounts are whole numbers, so a decimal fraction is dropped, not merged.
+  it('drops a decimal fraction instead of merging it into the integer part', () => {
+    expect(parseNumber('12.5')).toBe(12);
+    expect(parseNumber('1,234.56')).toBe(1234);
+  });
+
+  it('keeps "." followed by 3 digits as a thousands separator', () => {
+    expect(parseNumber('1.000.000')).toBe(1000000);
+  });
+
+  it('ignores a trailing "." while the user is typing', () => {
+    expect(parseNumber('12.')).toBe(12);
+  });
 });
 
 describe('formatCurrency', () => {
@@ -38,6 +52,16 @@ describe('formatCurrency', () => {
 
   it('handles small numbers', () => {
     expect(formatCurrency(500)).toBe('500');
+  });
+
+  // ML-003
+  it('drops a decimal fraction from a string', () => {
+    expect(formatCurrency('1234.56')).toBe('1,234');
+  });
+
+  it('drops a decimal fraction from a number', () => {
+    expect(formatCurrency(1234.56)).toBe('1,234');
+    expect(formatCurrency(1234.5678)).toBe('1,234');
   });
 });
 

@@ -64,7 +64,13 @@ pnpm install
 
 ### Configure environment variables
 
-Create a `.env.local` file at the root and fill in the values following `.env.sample`.
+Copy the sample file, then fill in the values:
+
+```bash
+cp .env.sample .env.local
+```
+
+`NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` are required. Without them, `pnpm build` fails with an error that names the missing variables.
 
 ### Run the application
 

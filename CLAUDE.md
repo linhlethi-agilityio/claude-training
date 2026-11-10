@@ -8,6 +8,7 @@ Training repo. The app lives in `moneylover/` (Next.js 16 + React 19 + Supabase 
 - Test: `pnpm test` · single file: `pnpm jest <path>` · Lint: `pnpm lint`
 - Build: `pnpm build`. Needs `.env.local` (copy `.env.sample`); see ticket ML-001.
 - Git hooks: pre-commit runs lint + all tests; pre-push runs `build`.
+- Fixing a ticket: follow the `fix-ticket` skill. After an MR is merged on GitLab: `/sync-remotes`.
 
 ## Architecture
 

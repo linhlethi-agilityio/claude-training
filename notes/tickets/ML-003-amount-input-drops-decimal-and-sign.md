@@ -63,4 +63,4 @@ To be decided (see the open questions). For example: `1234.56` → `"1,234.56"` 
 - [x] Failing unit tests added first (3 failed before the fix: `12.5`, `1234.56` string, `1234.56` number).
 - [x] `formatCurrency` and `parseNumber` behave as decided above.
 - [x] Existing tests still pass (439/439).
-- [ ] Verified in the UI: paste `1,234.56` into Amount → shows `1,234`.
+- [x] Verified in the UI (2026-11-11, Playwright, Add Transaction): paste `1,234.56` into Amount → shows `1,234`.

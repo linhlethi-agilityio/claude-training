@@ -8,7 +8,7 @@ Training repo. The app lives in `moneylover/` (Next.js 16 + React 19 + Supabase 
 - Test: `pnpm test` · single file: `pnpm jest <path>` · Lint: `pnpm lint`
 - Build: `pnpm build`. Needs `.env.local` (copy `.env.sample`); see ticket ML-001.
 - Git hooks: pre-commit runs lint + all tests; pre-push runs `build`.
-- Fixing a ticket: follow the `fix-ticket` skill. After an MR is merged on GitLab: `/sync-remotes`.
+- Fixing a ticket: follow the `fix-ticket` skill. Reviewing a branch or MR: follow the `review-checklist` skill. After an MR is merged on GitLab: `/sync-remotes`.
 - Hooks (`.claude/settings.json`): Bash commands from "Never do" are blocked; edited files in `moneylover/` are formatted with Prettier.
 - Browser checks: `playwright` MCP server (`.mcp.json`, uses Edge). Start `pnpm dev` first, then drive http://localhost:3000.
 

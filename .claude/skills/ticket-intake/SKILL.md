@@ -7,6 +7,12 @@ description: Developer intake for a capstone story or feature ticket - run the z
 
 Capstone rule: developers ask questions **only through the tickets**. Do not write code in this skill.
 
+## How to run the zero-questions test
+
+- Use a **fresh Code session in plan mode**, one ticket per session. A session that already discussed the feature fills the gaps from memory and misses them.
+- Give it only the ticket (and the repo). Prompt: "Read notes/capstone/CAP-00n-*.md. List every question you would need answered before you could implement and test it. Do not write code."
+- Log every question and its answer in `notes/capstone/zero-questions-log.md`.
+
 ## 1. Read
 
 - The client brief, the story, its Given/When/Then criteria, the spec, and the QA test matrix if there is one.
@@ -32,6 +38,9 @@ Ask: "Could I implement and test this from the ticket alone?" Check each item:
 | States | Empty, loading, error, success; what happens after submit |
 | Edge cases | Zero, negative, very long text, duplicates, deleted wallet/category, dates and time zones |
 | Permissions | Can a user see or change another user's data? |
+| State and components | Where the state lives (DB, URL, component state), which component or page owns it, new or existing component name |
+| Navigation | What happens on tab switch, page change, reload or back button: kept, reset or saved? |
+| Dependencies | Which other tickets must land first (T3 needs T2, not only T1), shared components or migrations |
 | Out of scope | What is explicitly not built |
 | Acceptance | Every criterion is Given/When/Then and testable (unit or Playwright) |
 
@@ -46,6 +55,7 @@ Append to the ticket's `## Open questions` section (create it if missing):
 - One question per line, each with options and a proposed answer, so the client can answer quickly.
 - Group questions by story. Number them so answers can be referenced (`Q3: A`).
 - Count them: the number of questions is the planning-quality score for the ticket pack.
+- Add each question and, once answered, its answer to `notes/capstone/zero-questions-log.md`, and note gaps that the BA review had missed.
 
 ## 5. Report
 

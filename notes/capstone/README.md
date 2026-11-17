@@ -8,6 +8,7 @@ The "client" (the lead) briefs a feature for the training app. Everything about 
 | `spec.md` | BA | Requirements, decisions, out of scope |
 | `CAP-xxx-<slug>.md` | BA | One story each: user story, Given/When/Then, open questions |
 | `test-matrix.md` | QA | Criteria × cases |
+| `zero-questions-log.md` | Dev | Questions per ticket from the zero-questions test, answers, where they were applied |
 
 Rules:
 

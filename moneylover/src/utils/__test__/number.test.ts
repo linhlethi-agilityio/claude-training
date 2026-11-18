@@ -52,4 +52,10 @@ describe('formatAmount', () => {
   it('does not show a minus sign when a small negative decimal truncates to zero', () => {
     expect(formatAmount(-0.5)).toBe('+0 đ');
   });
+
+  // ML-005: a missing or broken value is shown as zero, not as NaN / Infinity
+  it.each([NaN, Infinity, -Infinity])('shows %p as zero', (value) => {
+    expect(formatAmount(value)).toBe('+0 đ');
+    expect(formatAmount(value, 'VND', false)).toBe('0 đ');
+  });
 });

@@ -14,11 +14,11 @@
 |---|---|---|---|---|
 | 1 | `Math.trunc` shows float-drift totals one unit low (use `Math.round`) | False positive | Inputs are whole numbers from `bigint`; sums of integers are exact below 2^53; no conversion code exists. Trunc matches ML-003. | — |
 | 2 | `outflow` ignores the amount's own sign | False positive (for this branch) | Pre-existing behaviour, not changed by the diff. Amounts are `>= 0` by schema; the sign comes from `type`. | — |
-| 3 | `toString` gives `1e+21` / `-NaN đ` for non-finite or huge values | Confirmed, pre-existing | Checked: `NaN >= 0` is false, so `formatAmount(NaN)` gives `-NaN đ`. `1e21` is not a realistic amount. | ML-005 |
+| 3 | `toString` gives `1e+21` / `-NaN đ` for non-finite or huge values | Confirmed, pre-existing | Checked: `NaN >= 0` is false, so `formatAmount(NaN)` gives `-NaN đ`. `1e21` is not a realistic amount. | ML-005 (fixed) |
 | 4 | `-0.5` shows `+0 đ` | False positive | Negative decimals cannot reach the formatter; `+0 đ` matches the existing `formatAmount(0)`. Recorded as an assumption in ML-004. | — |
-| 5 | Trunc + grouping regex duplicated with `formatCurrency` | Confirmed, deferred on purpose | ML-004 Q2 kept this out of scope. | ML-005 |
+| 5 | Trunc + grouping regex duplicated with `formatCurrency` | Confirmed, deferred on purpose | ML-004 Q2 kept this out of scope. | ML-005 (fixed) |
 | 6 | Fix treats the symptom; non-integers should be stopped upstream | False positive | Upstream already guarantees whole numbers (`bigint`); the formatter is the ticket's scope. | — |
-| 7 | `whole < 0` duplicates `!isPositive` in the sign expression | Confirmed, nit | Pre-existing logic, only renamed in the diff. | ML-005 |
+| 7 | `whole < 0` duplicates `!isPositive` in the sign expression | Confirmed, nit | Pre-existing logic, only renamed in the diff. | ML-005 (fixed) |
 
 Signal: 3 of 7 useful (all low severity), 4 false positives. The false positives came from not knowing the domain rules (whole-number `bigint` amounts, sign from `type`), which are in CLAUDE.md and the tickets but not near the code.
 
@@ -35,12 +35,21 @@ Signal: 3 of 7 useful (all low severity), 4 false positives. The false positives
 
 ## 4. Security
 
-- [ ] `/security-review` on the branch.
+- [ ] `/security-review` on a branch (it reviews the pending diff, so run it on a feature branch, e.g. the ML-006 fix).
 - [ ] Install the `security-guidance` plugin (`/plugin`), note what it adds (hooks / skills) and whether it fires on edits.
-- Known existing issue (found while writing the checklist, out of scope): server actions in `moneylover/src/actions/` take `userId` from the caller instead of the session, and update/delete by `id` without an owner filter. Candidate ticket.
+- [x] Manual security pass over `actions/` and `libs/` with the `review-checklist` security section → **ML-006** (High if RLS is off):
+
+| Finding | Status | Where |
+|---|---|---|
+| Actions take `userId` from the caller, not the session | Verified in code | `actions/transaction.ts`, `wallet.ts`, `category.ts` |
+| Update/delete/read by `id` with no owner filter | Verified in code | `libs/transactions.ts:63,93`, `libs/wallets.ts:26,32` |
+| No RLS policies in migrations; one anon-key client | Verified in code | `src/supabase/migrations/*.sql`, `libs/supabase.ts:21` |
+| Another user's rows can be changed | Suspected, not exploited | Repro steps in ML-006 (test users only) |
+
+Lesson: a diff-based review (`/code-review`, `/security-review`) only sees what changed. This issue is in old code, so it needs a whole-area pass or a ticket.
 
 ## 5. Exercise result
 
-- [ ] Fixed what the review found; MR green (pre-commit lint + tests, pre-push build).
+- [x] Fixed what the review found: ML-005 (findings #3, #5, #7) on `fix/ML-005-format-amount-shared-helper`, test-first (3 failing → 449/449 green, lint + `tsc` clean).
 - False positives for the retro (see the table in section 2): #1, #2, #4, #6. Cause: the reviewer did not apply the whole-number / sign-from-`type` rules. Idea: a short comment on `formatAmount` stating the input contract.
 - `ultrathink` / `/effort`: where higher effort paid off, where it did not.

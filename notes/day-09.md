@@ -11,6 +11,7 @@ Project hooks live in `.claude/settings.json`, scripts in `.claude/hooks/`.
 | notify-on-finish | `Stop`, `Notification` | macOS notification via `osascript`. Personal, so it is in `.claude/settings.local.json` (gitignored), not in the MR. |
 
 - [x] Scripts tested with sample JSON input (blocked and allowed commands, unformatted and broken files).
+- Note: a session opened before the hooks were merged does not load them (checked: `echo "--no-verify"` was not blocked in the old VS Code session). Test in a new session.
 - [ ] In a new session, ask Claude to `git commit --no-verify` → blocked, and Claude explains why.
 - [ ] Ask Claude to edit a file with bad formatting → the file is formatted after the edit.
 - [ ] Check `/hooks` lists all hooks.

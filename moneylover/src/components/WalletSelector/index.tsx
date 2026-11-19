@@ -92,7 +92,7 @@ export const WalletSelector = ({
     if (!idWalletDelete) return;
 
     startTransition(async () => {
-      const error = await deleteWallet(idWalletDelete, userId);
+      const error = await deleteWallet(idWalletDelete);
 
       setIdWalletDelete(null);
 

@@ -24,9 +24,9 @@ export const getRecentTransactionsList = async (
   return getRecentTransactions(userId, limit);
 };
 
-export const getTransactionDetailById = async (id: string) => {
+export const getTransactionDetailById = async (id: string, userId: string) => {
   cacheTag(`${CACHE_TAGS.TRANSACTION}/${id}`);
-  return getTransactionById(id);
+  return getTransactionById(id, userId);
 };
 
 export const getTransactionsByDate = async (

@@ -49,20 +49,26 @@ export const getRecentTransactions = async (userId: string, limit: number) => {
   return data ?? [];
 };
 
-export const getTransactionById = async (id: string) => {
+export const getTransactionById = async (id: string, userId: string) => {
   const { data } = await supabase
     .from('transactions')
     .select('*, category:categories(name, image_url, type)')
     .eq('id', id)
+    .eq('user_id', userId)
     .single();
 
   return data;
 };
 
-export const removeTransaction = async (id: string) => {
-  const { error } = await supabase.from('transactions').delete().eq('id', id);
+export const removeTransaction = async (id: string, userId: string) => {
+  const { data, error } = await supabase
+    .from('transactions')
+    .delete()
+    .eq('id', id)
+    .eq('user_id', userId)
+    .select('id');
 
-  return { error };
+  return { error, found: !!data?.length };
 };
 
 export const getTransactionBalanceByDate = async (
@@ -89,8 +95,13 @@ export const addTransaction = async (params: Partial<Transaction>) => {
   return { error };
 };
 
-export const editTransaction = async (id: string, params: Partial<Transaction>) => {
-  const { error } = await supabase.from('transactions').update(params).eq('id', id);
+export const editTransaction = async (id: string, userId: string, params: Partial<Transaction>) => {
+  const { data, error } = await supabase
+    .from('transactions')
+    .update(params)
+    .eq('id', id)
+    .eq('user_id', userId)
+    .select('id');
 
-  return { error };
+  return { error, found: !!data?.length };
 };

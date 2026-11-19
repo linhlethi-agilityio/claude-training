@@ -22,14 +22,24 @@ export const addWallet = async ({ user_id, name, currency, balance = 0 }: Insert
   return { data, error };
 };
 
-export const editWallet = async ({ id, name, currency, balance }: Partial<Wallet>) => {
-  const { error } = await supabase.from('wallets').update({ name, currency, balance }).eq('id', id);
+export const editWallet = async ({ id, user_id, name, currency, balance }: Partial<Wallet>) => {
+  const { data, error } = await supabase
+    .from('wallets')
+    .update({ name, currency, balance })
+    .eq('id', id)
+    .eq('user_id', user_id)
+    .select('id');
 
-  return { error };
+  return { error, found: !!data?.length };
 };
 
-export const removeWallet = async (walletId: string) => {
-  const { error } = await supabase.from('wallets').delete().eq('id', walletId);
+export const removeWallet = async (walletId: string, userId: string) => {
+  const { data, error } = await supabase
+    .from('wallets')
+    .delete()
+    .eq('id', walletId)
+    .eq('user_id', userId)
+    .select('id');
 
-  return { error };
+  return { error, found: !!data?.length };
 };

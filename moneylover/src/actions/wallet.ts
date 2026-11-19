@@ -3,30 +3,42 @@
 import { updateTag } from 'next/cache';
 
 // Constants
-import { CACHE_TAGS } from '@/constants';
+import { CACHE_TAGS, ERROR_MESSAGES } from '@/constants';
 
 // Types
-import { FinanceType, Wallet } from '@/types';
+import { FinanceType } from '@/types';
+
+// Configs
+import { auth } from '@/configs/auth';
 
 // Libs
-import { addWallet, editWallet, removeWallet, addTransaction, getDefaultCategoryByType } from '@/libs';
+import {
+  addWallet,
+  editWallet,
+  removeWallet,
+  addTransaction,
+  getDefaultCategoryByType,
+} from '@/libs';
 
 // Utils
 import { toDateString } from '@/utils';
 
 interface CreateWalletParams {
-  userId: string;
   name: string;
   currency: string;
   balance?: number;
 }
 
 export const createWallet = async ({
-  userId,
   name,
   currency,
   balance = 0,
 }: CreateWalletParams): Promise<void | string> => {
+  const userId = (await auth())?.user?.id;
+  if (!userId) {
+    return ERROR_MESSAGES.SOMETHING_WENT_WRONG;
+  }
+
   const { data: walletData, error: walletError } = await addWallet({
     user_id: userId,
     name,
@@ -58,27 +70,51 @@ export const createWallet = async ({
   updateTag(`${CACHE_TAGS.TRANSACTIONS}/${userId}`);
 };
 
+interface UpdateWalletParams {
+  id: string;
+  name?: string;
+  currency?: string;
+  balance?: number;
+}
+
 export const updateWallet = async ({
   id,
-  user_id,
   name,
   currency,
   balance,
-}: Partial<Wallet>): Promise<void | string> => {
-  const { error } = await editWallet({ id, name, currency, balance });
+}: UpdateWalletParams): Promise<void | string> => {
+  const userId = (await auth())?.user?.id;
+  if (!userId) {
+    return ERROR_MESSAGES.SOMETHING_WENT_WRONG;
+  }
+
+  const { error, found } = await editWallet({ id, user_id: userId, name, currency, balance });
 
   if (error) {
     return error.message;
   }
 
-  updateTag(`${CACHE_TAGS.WALLETS}/${user_id}`);
+  if (!found) {
+    return ERROR_MESSAGES.SOMETHING_WENT_WRONG;
+  }
+
+  updateTag(`${CACHE_TAGS.WALLETS}/${userId}`);
 };
 
-export const deleteWallet = async (walletId: string, userId: string): Promise<void | string> => {
-  const { error } = await removeWallet(walletId);
+export const deleteWallet = async (walletId: string): Promise<void | string> => {
+  const userId = (await auth())?.user?.id;
+  if (!userId) {
+    return ERROR_MESSAGES.SOMETHING_WENT_WRONG;
+  }
+
+  const { error, found } = await removeWallet(walletId, userId);
 
   if (error) {
     return error.message;
+  }
+
+  if (!found) {
+    return ERROR_MESSAGES.SOMETHING_WENT_WRONG;
   }
 
   updateTag(`${CACHE_TAGS.WALLETS}/${userId}`);

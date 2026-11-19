@@ -84,30 +84,67 @@ describe('addWallet', () => {
 });
 
 describe('editWallet', () => {
-  it('returns no error on success', async () => {
-    getSupabase().eq.mockResolvedValueOnce({ error: null });
-    const result = await editWallet({ id: '1', name: 'Updated', currency: 'VND', balance: 500000 });
-    expect(result.error).toBeNull();
+  it('returns no error and found on success', async () => {
+    getSupabase().select.mockResolvedValueOnce({ data: [{ id: '1' }], error: null });
+    const result = await editWallet({
+      id: '1',
+      user_id: 'user-1',
+      name: 'Updated',
+      currency: 'VND',
+      balance: 500000,
+    });
+    expect(result).toEqual({ error: null, found: true });
   });
 
   it('returns error on failure', async () => {
-    getSupabase().eq.mockResolvedValueOnce({ error: 'DB error' });
-    const result = await editWallet({ id: '1', name: 'Updated', currency: 'VND' });
+    getSupabase().select.mockResolvedValueOnce({ data: null, error: 'DB error' });
+    const result = await editWallet({
+      id: '1',
+      user_id: 'user-1',
+      name: 'Updated',
+      currency: 'VND',
+    });
     expect(result.error).toBe('DB error');
+  });
+
+  it('filters update by id and owner', async () => {
+    getSupabase().select.mockResolvedValueOnce({ data: [{ id: '1' }], error: null });
+    await editWallet({ id: '1', user_id: 'user-1', name: 'Updated', currency: 'VND', balance: 0 });
+    expect(getSupabase().update).toHaveBeenCalledWith({
+      name: 'Updated',
+      currency: 'VND',
+      balance: 0,
+    });
+    expect(getSupabase().eq).toHaveBeenCalledWith('id', '1');
+    expect(getSupabase().eq).toHaveBeenCalledWith('user_id', 'user-1');
+  });
+
+  it('returns found false when no owned row matches', async () => {
+    getSupabase().select.mockResolvedValueOnce({ data: [], error: null });
+    const result = await editWallet({ id: 'other', user_id: 'user-1', name: 'X', currency: 'VND' });
+    expect(result).toEqual({ error: null, found: false });
   });
 });
 
 describe('removeWallet', () => {
-  it('returns no error on success', async () => {
-    getSupabase().eq.mockResolvedValueOnce({ error: null });
-    const result = await removeWallet('wallet-1');
-    expect(result.error).toBeNull();
+  it('returns no error and found on success', async () => {
+    getSupabase().select.mockResolvedValueOnce({ data: [{ id: 'wallet-1' }], error: null });
+    const result = await removeWallet('wallet-1', 'user-1');
+    expect(result).toEqual({ error: null, found: true });
   });
 
-  it('calls delete with correct id', async () => {
-    getSupabase().eq.mockResolvedValueOnce({ error: null });
-    await removeWallet('wallet-1');
+  it('filters delete by id and owner', async () => {
+    getSupabase().select.mockResolvedValueOnce({ data: [{ id: 'wallet-1' }], error: null });
+    await removeWallet('wallet-1', 'user-1');
     expect(getSupabase().from).toHaveBeenCalledWith('wallets');
+    expect(getSupabase().delete).toHaveBeenCalled();
     expect(getSupabase().eq).toHaveBeenCalledWith('id', 'wallet-1');
+    expect(getSupabase().eq).toHaveBeenCalledWith('user_id', 'user-1');
+  });
+
+  it('returns found false when no owned row matches', async () => {
+    getSupabase().select.mockResolvedValueOnce({ data: [], error: null });
+    const result = await removeWallet('wallet-other', 'user-1');
+    expect(result).toEqual({ error: null, found: false });
   });
 });

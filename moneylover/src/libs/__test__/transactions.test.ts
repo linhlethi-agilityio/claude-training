@@ -113,29 +113,38 @@ describe('getRecentTransactions', () => {
 describe('getTransactionById', () => {
   it('returns transaction data', async () => {
     getSupabase().single.mockResolvedValueOnce({ data: MOCK_TRANSACTIONS_WITH_CATEGORY[0] });
-    const result = await getTransactionById('txn-1');
+    const result = await getTransactionById('txn-1', 'user-1');
     expect(result).toEqual(MOCK_TRANSACTIONS_WITH_CATEGORY[0]);
   });
 
-  it('queries with correct id', async () => {
+  it('filters by id and owner', async () => {
     getSupabase().single.mockResolvedValueOnce({ data: null });
-    await getTransactionById('txn-1');
+    await getTransactionById('txn-1', 'user-1');
     expect(getSupabase().eq).toHaveBeenCalledWith('id', 'txn-1');
+    expect(getSupabase().eq).toHaveBeenCalledWith('user_id', 'user-1');
   });
 });
 
 describe('removeTransaction', () => {
-  it('returns no error on success', async () => {
-    getSupabase().eq.mockResolvedValueOnce({ error: null });
-    const result = await removeTransaction('txn-1');
-    expect(result.error).toBeNull();
+  it('returns no error and found on success', async () => {
+    getSupabase().select.mockResolvedValueOnce({ data: [{ id: 'txn-1' }], error: null });
+    const result = await removeTransaction('txn-1', 'user-1');
+    expect(result).toEqual({ error: null, found: true });
   });
 
-  it('calls delete with correct id', async () => {
-    getSupabase().eq.mockResolvedValueOnce({ error: null });
-    await removeTransaction('txn-1');
+  it('filters delete by id and owner', async () => {
+    getSupabase().select.mockResolvedValueOnce({ data: [{ id: 'txn-1' }], error: null });
+    await removeTransaction('txn-1', 'user-1');
     expect(getSupabase().from).toHaveBeenCalledWith('transactions');
+    expect(getSupabase().delete).toHaveBeenCalled();
     expect(getSupabase().eq).toHaveBeenCalledWith('id', 'txn-1');
+    expect(getSupabase().eq).toHaveBeenCalledWith('user_id', 'user-1');
+  });
+
+  it('returns found false when no owned row matches', async () => {
+    getSupabase().select.mockResolvedValueOnce({ data: [], error: null });
+    const result = await removeTransaction('txn-other', 'user-1');
+    expect(result).toEqual({ error: null, found: false });
   });
 });
 
@@ -180,16 +189,24 @@ describe('addTransaction', () => {
 });
 
 describe('editTransaction', () => {
-  it('returns no error on success', async () => {
-    getSupabase().eq.mockResolvedValueOnce({ error: null });
-    const result = await editTransaction('txn-1', { amount: 200000 });
-    expect(result.error).toBeNull();
+  it('returns no error and found on success', async () => {
+    getSupabase().select.mockResolvedValueOnce({ data: [{ id: 'txn-1' }], error: null });
+    const result = await editTransaction('txn-1', 'user-1', { amount: 200000 });
+    expect(result).toEqual({ error: null, found: true });
   });
 
-  it('calls update with correct id', async () => {
-    getSupabase().eq.mockResolvedValueOnce({ error: null });
-    await editTransaction('txn-1', { amount: 200000 });
+  it('filters update by id and owner', async () => {
+    getSupabase().select.mockResolvedValueOnce({ data: [{ id: 'txn-1' }], error: null });
+    await editTransaction('txn-1', 'user-1', { amount: 200000 });
     expect(getSupabase().from).toHaveBeenCalledWith('transactions');
+    expect(getSupabase().update).toHaveBeenCalledWith({ amount: 200000 });
     expect(getSupabase().eq).toHaveBeenCalledWith('id', 'txn-1');
+    expect(getSupabase().eq).toHaveBeenCalledWith('user_id', 'user-1');
+  });
+
+  it('returns found false when no owned row matches', async () => {
+    getSupabase().select.mockResolvedValueOnce({ data: [], error: null });
+    const result = await editTransaction('txn-other', 'user-1', { amount: 200000 });
+    expect(result).toEqual({ error: null, found: false });
   });
 });

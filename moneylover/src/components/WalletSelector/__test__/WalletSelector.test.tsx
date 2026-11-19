@@ -111,7 +111,7 @@ describe('WalletSelector', () => {
     fireEvent.click(screen.getByText('Delete'));
     fireEvent.click(screen.getByRole('button', { name: 'Delete' }));
     await waitFor(() => {
-      expect(deleteWallet).toHaveBeenCalledWith(MOCK_WALLETS[0].id, 'user-1');
+      expect(deleteWallet).toHaveBeenCalledWith(MOCK_WALLETS[0].id);
     });
   });
 

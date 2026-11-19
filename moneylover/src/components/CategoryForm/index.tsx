@@ -25,7 +25,8 @@ import { Button, Input, Dropdown } from '@/components';
 const REQUIRED_FIELDS = ['name'];
 
 interface CategoryFormProps {
-  userId: string;
+  /** Unused since ML-006: actions read the user from the session. */
+  userId?: string;
   expenseCategories?: Category[];
   incomeCategories?: Category[];
   previewData?: Category;
@@ -33,7 +34,6 @@ interface CategoryFormProps {
 }
 
 export const CategoryForm = ({
-  userId,
   expenseCategories = [],
   incomeCategories = [],
   previewData,
@@ -81,13 +81,11 @@ export const CategoryForm = ({
       const error = isEditMode
         ? await updateCategory({
             id: previewData.id,
-            userId,
             name: name,
             type: type,
             parentId: parentId || null,
           })
         : await createCategory({
-            userId,
             name: name,
             type: type,
             parentId: parentId || null,

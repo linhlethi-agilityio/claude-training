@@ -3,6 +3,8 @@ export const ERROR_MESSAGES = {
   EMAIL_INVALID: 'Please enter a valid email',
   PASSWORD_MIN_LENGTH: 'Password must be at least 6 characters',
   CONFIRM_PASSWORD_NOT_MATCH: 'Passwords do not match',
+  AMOUNT_NOT_POSITIVE: 'Amount must be greater than 0',
+  NOTE_TOO_LONG: (max: number) => `Note must be at most ${max} characters`,
 
   SIGN_UP_FAILED: 'Sign up failed. Please try again.',
   EMAIL_PASSWORD_INVALID: 'Email or password is invalid',
@@ -20,5 +22,3 @@ export const SUCCESS_MESSAGES = {
   TRANSACTION_UPDATED: 'Transaction updated successfully!',
   TRANSACTION_DELETED: 'Transaction deleted successfully!',
 };
-
-

@@ -33,9 +33,9 @@ export const TransactionItem = ({
       onClick={onClick}
     >
       <p className="text-2xl font-light text-gray-400">{day}</p>
-      <div className="flex-1">
+      <div className="min-w-0 flex-1">
         <p className="text-sm text-gray-700">{fullDate}</p>
-        {note && <p className="text-xs text-gray-400">{note}</p>}
+        {note && <p className="truncate text-xs text-gray-400">{note}</p>}
       </div>
       <p
         className={cn(

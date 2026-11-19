@@ -11,7 +11,7 @@ exports[`TransactionItem renders with default props 1`] = `
       15
     </p>
     <div
-      class="flex-1"
+      class="min-w-0 flex-1"
     >
       <p
         class="text-sm text-gray-700"

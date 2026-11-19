@@ -62,7 +62,7 @@ export const TransactionDetailModal = ({
           <div className="flex flex-col gap-3">
             <CategoryInfo name={name} imageUrl={image_url} />
             {walletName && <p className="text-sm font-bold text-gray-400">Wallet: {walletName}</p>}
-            {note && <p className="text-sm text-gray-500">{note}</p>}
+            {note && <p className="break-words text-sm text-gray-500">{note}</p>}
             <p className="text-xs text-gray-400">{getFullDate(date)}</p>
             <hr className="border-gray-100" />
             <p

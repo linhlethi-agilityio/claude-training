@@ -6,10 +6,16 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import Image from 'next/image';
 
 // Constants
-import { CATEGORY_TYPES, ERROR_MESSAGES, SUCCESS_MESSAGES } from '@/constants';
+import { CATEGORY_TYPES, ERROR_MESSAGES, NOTE_MAX_LENGTH, SUCCESS_MESSAGES } from '@/constants';
 
 // Types
-import { Category, FinanceType, TransactionFormData, TransactionWithCategory, Wallet } from '@/types';
+import {
+  Category,
+  FinanceType,
+  TransactionFormData,
+  TransactionWithCategory,
+  Wallet,
+} from '@/types';
 
 // Utils
 import {
@@ -244,10 +250,12 @@ export const TransactionForm = ({
       <Controller
         name="note"
         control={control}
-        render={({ field: { name, onChange, ...rest } }) => (
+        render={({ field: { name, onChange, ...rest }, fieldState: { error } }) => (
           <Input
             label="Note (optional)"
             placeholder="Add a note..."
+            maxLength={NOTE_MAX_LENGTH}
+            errorMessage={error?.message}
             onChange={(e) => {
               onChange(e.target.value);
               clearErrorOnChange(name, errors, clearErrors);

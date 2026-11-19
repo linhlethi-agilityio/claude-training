@@ -61,6 +61,14 @@ describe('createTransaction', () => {
     expect(result).toBe('Insert failed');
     expect(updateTag).not.toHaveBeenCalled();
   });
+
+  it('should reject a note longer than 255 characters without calling addTransaction', async () => {
+    const result = await createTransaction({ ...defaultParams, note: 'x'.repeat(256) });
+
+    expect(result).toBe('Note must be at most 255 characters');
+    expect(addTransaction).not.toHaveBeenCalled();
+    expect(updateTag).not.toHaveBeenCalled();
+  });
 });
 
 describe('updateTransaction', () => {
@@ -101,6 +109,17 @@ describe('updateTransaction', () => {
     const result = await updateTransaction('txn-1', 'user-1', formData);
 
     expect(result).toBe('Update failed');
+    expect(updateTag).not.toHaveBeenCalled();
+  });
+
+  it('should reject a note longer than 255 characters without calling editTransaction', async () => {
+    const result = await updateTransaction('txn-1', 'user-1', {
+      ...formData,
+      note: 'x'.repeat(256),
+    });
+
+    expect(result).toBe('Note must be at most 255 characters');
+    expect(editTransaction).not.toHaveBeenCalled();
     expect(updateTag).not.toHaveBeenCalled();
   });
 });

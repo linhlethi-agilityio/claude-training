@@ -79,7 +79,7 @@ exports[`TransactionDetailModal renders with default props 1`] = `
               Cash
             </p>
             <p
-              class="text-sm text-gray-500"
+              class="break-words text-sm text-gray-500"
             >
               Lunch
             </p>

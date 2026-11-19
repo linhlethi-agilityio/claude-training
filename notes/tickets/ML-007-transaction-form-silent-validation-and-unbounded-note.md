@@ -1,7 +1,7 @@
 # ML-007 — Add Transaction form gives no validation feedback, and notes have no length limit
 
 - **Type:** Bug (validation + UI)
-- **Status:** Open (decisions recorded 2026-11-19, ready to build)
+- **Status:** Fixed on branch fix/ML-007-transaction-form-validation
 - **Area:** `moneylover/src/components/TransactionForm/index.tsx`, `moneylover/src/components/TransactionItem/index.tsx`, `moneylover/src/actions/transaction.ts`
 - **Severity:** Medium (no data loss; confusing UX and a broken page layout)
 - **Source:** Manual browser test on 2026-11-18 (Playwright, Edge, local dev server)
@@ -55,10 +55,18 @@ After saving the long note, `/transactions` grows to about 30,400 px wide in a 1
 
 ## Acceptance criteria
 
-- [ ] Tests: empty / `0` amount shows the amount error message.
-- [ ] Tests: a note over the limit shows an error and is not submitted.
-- [ ] Server action rejects a note over the limit.
-- [ ] A long unbroken note does not make `/transactions` scroll horizontally.
+- [x] Tests: empty / `0` amount shows the amount error message.
+- [x] Tests: a note over the limit shows an error and is not submitted.
+- [x] Server action rejects a note over the limit.
+- [ ] A long unbroken note does not make `/transactions` scroll horizontally. (`truncate` + `min-w-0` added and covered by snapshots; not yet checked in the browser.)
+
+## Decision
+
+- `NOTE_MAX_LENGTH = 255` lives in `constants/transaction.ts`; the zod schema, the note `maxLength` and the server actions all use it.
+- The amount schema uses `.positive()`, so `0` and a cleared field (which `parseNumber` turns into `0`) show "Amount must be greater than 0" on blur. The Submit enable rule is unchanged.
+- `Input` sets `aria-invalid="true"` only when it has an `errorMessage` (no attribute otherwise), so other forms' markup does not change.
+- The server actions check only the note length (the scope of this ticket); they do not re-run the full schema.
+- Snapshot changes are limited to the new `truncate` / `min-w-0` / `break-words` classes and `maxlength="255"`.
 
 ## Test data left behind
 

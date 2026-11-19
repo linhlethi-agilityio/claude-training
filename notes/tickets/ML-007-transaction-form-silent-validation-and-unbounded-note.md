@@ -1,7 +1,7 @@
 # ML-007 — Add Transaction form gives no validation feedback, and notes have no length limit
 
 - **Type:** Bug (validation + UI)
-- **Status:** Open (needs a decision on the note limit, see open questions)
+- **Status:** Open (decisions recorded 2026-11-19, ready to build)
 - **Area:** `moneylover/src/components/TransactionForm/index.tsx`, `moneylover/src/components/TransactionItem/index.tsx`, `moneylover/src/actions/transaction.ts`
 - **Severity:** Medium (no data loss; confusing UX and a broken page layout)
 - **Source:** Manual browser test on 2026-11-18 (Playwright, Edge, local dev server)
@@ -44,10 +44,14 @@ After saving the long note, `/transactions` grows to about 30,400 px wide in a 1
 
 ## Open questions
 
-1. What is the max note length (e.g. 255)?
-2. Should the limit also be a DB `CHECK` constraint? That needs a migration, which CLAUDE.md allows only if the ticket says so.
-3. When should the amount message show: on blur, on submit attempt, or while Submit stays disabled?
-4. In the list, wrap long notes (`break-words`) or truncate to one line (`truncate`) with the full note on the detail page?
+- [x] Q1. What is the max note length (e.g. 255)?
+  - **Decision:** 255 characters, in one shared constant used by the form schema and the server action. Message: "Note must be at most 255 characters". The input also gets `maxLength={255}`.
+- [x] Q2. Should the limit also be a DB `CHECK` constraint? That needs a migration, which CLAUDE.md allows only if the ticket says so.
+  - **Decision:** No. No migration in this ticket; the server action check is enough for now. A DB constraint can be a later ticket.
+- [x] Q3. When should the amount message show: on blur, on submit attempt, or while Submit stays disabled?
+  - **Decision:** On blur, like the rest of the form (`mode: 'onBlur'`). The schema requires an amount greater than 0 with the message "Amount must be greater than 0". Submit keeps its current enable rule.
+- [x] Q4. In the list, wrap long notes (`break-words`) or truncate to one line (`truncate`) with the full note on the detail page?
+  - **Decision:** Truncate to one line in the list (`truncate`); the detail page shows the full note with `break-words`. `/transactions` must not scroll horizontally.
 
 ## Acceptance criteria
 

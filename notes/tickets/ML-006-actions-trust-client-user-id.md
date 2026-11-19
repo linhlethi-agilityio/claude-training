@@ -1,7 +1,7 @@
 # ML-006 — Server actions trust the caller's `userId` and change rows by `id` only
 
 - **Type:** Security bug
-- **Status:** Open (needs a decision before fixing, see open questions)
+- **Status:** Open (decisions recorded 2026-11-19, ready to build)
 - **Area:** `moneylover/src/actions/` (`transaction.ts`, `wallet.ts`, `category.ts`), `moneylover/src/libs/` (`transactions.ts`, `wallets.ts`, `categories.ts`)
 - **Severity:** High if row level security (RLS) is off in the Supabase project; Low if RLS is on and tied to the user
 - **Source:** Day 10 security review (manual, while writing the `review-checklist` skill)
@@ -37,8 +37,10 @@ Server actions receive `userId` as a parameter from the client instead of readin
 
 ## Open questions
 
-1. Fix in the app only (session user id + owner filters), or also enable RLS? RLS needs a migration and a Supabase auth mapping, which CLAUDE.md says needs an explicit ticket decision.
-2. Should unauthorised calls return a generic error or 404-like "not found"?
+- [x] Q1. Fix in the app only (session user id + owner filters), or also enable RLS? RLS needs a migration and a Supabase auth mapping, which CLAUDE.md says needs an explicit ticket decision.
+  - **Decision:** App only. Actions read the user id from `auth()`; every update, delete and single-row read filters by `user_id`. No migration in this ticket. RLS becomes a separate ticket, because it needs a Supabase auth mapping for NextAuth users.
+- [x] Q2. Should unauthorised calls return a generic error or 404-like "not found"?
+  - **Decision:** Return the generic `ERROR_MESSAGES.SOMETHING_WENT_WRONG` and change nothing. No session → same generic error. Do not reveal whether the id exists.
 
 ## Acceptance criteria
 

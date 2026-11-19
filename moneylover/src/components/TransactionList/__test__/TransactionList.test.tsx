@@ -79,7 +79,6 @@ describe('TransactionList', () => {
   });
 
   it('opens transaction detail modal when transaction item is clicked', async () => {
-    
     render(<TransactionList {...defaultProps} />);
     fireEvent.click(screen.getByText('Lunch').closest('div')!);
     await waitFor(() => {
@@ -88,7 +87,6 @@ describe('TransactionList', () => {
   });
 
   it('opens confirm delete modal when delete is clicked in detail modal', async () => {
-    
     render(<TransactionList {...defaultProps} />);
     fireEvent.click(screen.getByText('Lunch').closest('div')!);
     await waitFor(() => screen.getByText('Transaction detail'));
@@ -97,7 +95,6 @@ describe('TransactionList', () => {
   });
 
   it('closes confirm delete modal when cancel is clicked', async () => {
-    
     render(<TransactionList {...defaultProps} />);
     fireEvent.click(screen.getByText('Lunch').closest('div')!);
     await waitFor(() => screen.getByText('Transaction detail'));
@@ -107,7 +104,6 @@ describe('TransactionList', () => {
   });
 
   it('closes transaction detail modal when close is clicked', async () => {
-    
     render(<TransactionList {...defaultProps} />);
     fireEvent.click(screen.getByText('Lunch').closest('div')!);
     await waitFor(() => screen.getByText('Transaction detail'));
@@ -120,7 +116,6 @@ describe('TransactionList', () => {
   });
 
   it('opens edit transaction modal when Edit is clicked in detail modal', async () => {
-    
     render(<TransactionList {...defaultProps} />);
     fireEvent.click(screen.getByText('Lunch').closest('div')!);
     await waitFor(() => screen.getByText('Transaction detail'));
@@ -129,7 +124,6 @@ describe('TransactionList', () => {
   });
 
   it('closes edit modal after form submit', async () => {
-    
     (updateTransaction as jest.Mock).mockResolvedValue(undefined);
     render(<TransactionList {...defaultProps} />);
     fireEvent.click(screen.getByText('Lunch').closest('div')!);
@@ -147,7 +141,6 @@ describe('TransactionList', () => {
   });
 
   it('closes edit transaction modal when close is clicked', async () => {
-    
     render(<TransactionList {...defaultProps} />);
     fireEvent.click(screen.getByText('Lunch').closest('div')!);
     await waitFor(() => screen.getByText('Transaction detail'));
@@ -161,7 +154,6 @@ describe('TransactionList', () => {
   });
 
   it('confirms delete and closes modal on success', async () => {
-    
     (deleteTransaction as jest.Mock).mockResolvedValue(undefined);
     render(<TransactionList {...defaultProps} />);
     fireEvent.click(screen.getByText('Lunch').closest('div')!);
@@ -171,13 +163,12 @@ describe('TransactionList', () => {
     const deleteBtns = screen.getAllByRole('button', { name: 'Delete' });
     fireEvent.click(deleteBtns[deleteBtns.length - 1]);
     await waitFor(() => {
-      expect(deleteTransaction).toHaveBeenCalledWith(MOCK_TRANSACTIONS_WITH_CATEGORY[0].id, 'user-1');
+      expect(deleteTransaction).toHaveBeenCalledWith(MOCK_TRANSACTIONS_WITH_CATEGORY[0].id);
       expect(screen.queryByText('Delete transaction')).not.toBeInTheDocument();
     });
   });
 
   it('shows error toast when deleteTransaction fails', async () => {
-    
     (deleteTransaction as jest.Mock).mockResolvedValue('Something went wrong');
     render(<TransactionList {...defaultProps} />);
     fireEvent.click(screen.getByText('Lunch').closest('div')!);

@@ -26,18 +26,14 @@ import { Button, Input } from '@/components';
 const REQUIRED_FIELDS = ['name'];
 
 interface WalletFormProps {
-  userId: string;
+  /** Unused since ML-006: actions read the user from the session. */
+  userId?: string;
   showBalance?: boolean;
   previewData?: Wallet;
   onSubmit?: () => void;
 }
 
-export const WalletForm = ({
-  userId,
-  showBalance = false,
-  previewData,
-  onSubmit,
-}: WalletFormProps) => {
+export const WalletForm = ({ showBalance = false, previewData, onSubmit }: WalletFormProps) => {
   const [isPending, startTransition] = useTransition();
   const { showToast } = useToast();
   const router = useRouter();
@@ -72,8 +68,8 @@ export const WalletForm = ({
       const balance = parseNumber(String(formData.balance ?? 0));
 
       const error = previewData
-        ? await updateWallet({ id: previewData.id, user_id: userId, ...formData, balance })
-        : await createWallet({ userId, ...formData, balance });
+        ? await updateWallet({ id: previewData.id, ...formData, balance })
+        : await createWallet({ ...formData, balance });
 
       if (error) {
         return showToast({

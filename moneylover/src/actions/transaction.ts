@@ -8,26 +8,28 @@ import { CACHE_TAGS, ERROR_MESSAGES, NOTE_MAX_LENGTH } from '@/constants';
 // Types
 import { TransactionFormData } from '@/types';
 
+// Configs
+import { auth } from '@/configs/auth';
+
 // Libs
 import { addTransaction, editTransaction, removeTransaction, getTransactionById } from '@/libs';
 
 const validateNote = (note?: string): string | undefined =>
   note && note.length > NOTE_MAX_LENGTH ? ERROR_MESSAGES.NOTE_TOO_LONG(NOTE_MAX_LENGTH) : undefined;
 
-interface CreateTransactionParams extends TransactionFormData {
-  userId: string;
-  walletId: string;
-}
-
 export const createTransaction = async ({
-  userId,
   walletId,
   categoryId,
   type,
   amount,
   date,
   note,
-}: CreateTransactionParams): Promise<void | string> => {
+}: TransactionFormData): Promise<void | string> => {
+  const userId = (await auth())?.user?.id;
+  if (!userId) {
+    return ERROR_MESSAGES.SOMETHING_WENT_WRONG;
+  }
+
   const noteError = validateNote(note);
   if (noteError) {
     return noteError;
@@ -53,16 +55,20 @@ export const createTransaction = async ({
 
 export const updateTransaction = async (
   id: string,
-  userId: string,
   data: TransactionFormData,
 ): Promise<void | string> => {
+  const userId = (await auth())?.user?.id;
+  if (!userId) {
+    return ERROR_MESSAGES.SOMETHING_WENT_WRONG;
+  }
+
   const { walletId, categoryId, type, amount, date, note } = data;
   const noteError = validateNote(note);
   if (noteError) {
     return noteError;
   }
 
-  const { error } = await editTransaction(id, {
+  const { error, found } = await editTransaction(id, userId, {
     wallet_id: walletId,
     category_id: categoryId,
     type,
@@ -75,16 +81,29 @@ export const updateTransaction = async (
     return error.message;
   }
 
+  if (!found) {
+    return ERROR_MESSAGES.SOMETHING_WENT_WRONG;
+  }
+
   updateTag(`${CACHE_TAGS.TRANSACTIONS}/${userId}`);
   updateTag(`${CACHE_TAGS.TRANSACTION}/${id}`);
   updateTag(`${CACHE_TAGS.WALLETS}/${userId}`);
 };
 
-export const deleteTransaction = async (id: string, userId: string): Promise<void | string> => {
-  const { error } = await removeTransaction(id);
+export const deleteTransaction = async (id: string): Promise<void | string> => {
+  const userId = (await auth())?.user?.id;
+  if (!userId) {
+    return ERROR_MESSAGES.SOMETHING_WENT_WRONG;
+  }
+
+  const { error, found } = await removeTransaction(id, userId);
 
   if (error) {
     return error.message;
+  }
+
+  if (!found) {
+    return ERROR_MESSAGES.SOMETHING_WENT_WRONG;
   }
 
   updateTag(`${CACHE_TAGS.TRANSACTIONS}/${userId}`);
@@ -92,5 +111,10 @@ export const deleteTransaction = async (id: string, userId: string): Promise<voi
 };
 
 export const fetchTransactionDetail = async (id: string) => {
-  return getTransactionById(id);
+  const userId = (await auth())?.user?.id;
+  if (!userId) {
+    return null;
+  }
+
+  return getTransactionById(id, userId);
 };

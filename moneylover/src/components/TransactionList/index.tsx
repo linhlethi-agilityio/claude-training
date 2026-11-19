@@ -99,7 +99,7 @@ export const TransactionList = ({
     startTransition(async () => {
       const { id = '' } = selectedTransaction;
 
-      const error = await deleteTransaction(id, userId);
+      const error = await deleteTransaction(id);
 
       if (error) {
         return showToast({

@@ -3,27 +3,33 @@
 import { updateTag } from 'next/cache';
 
 // Constants
-import { CACHE_TAGS } from '@/constants';
+import { CACHE_TAGS, ERROR_MESSAGES } from '@/constants';
 
 // Types
 import { FinanceType } from '@/types';
+
+// Configs
+import { auth } from '@/configs/auth';
 
 // Libs
 import { addCategory, editCategory, removeCategory } from '@/libs';
 
 interface CreateCategoryParams {
-  userId: string;
   name: string;
   type: string;
   parentId?: string | null;
 }
 
 export const createCategory = async ({
-  userId,
   name,
   type,
   parentId = null,
 }: CreateCategoryParams): Promise<void | string> => {
+  const userId = (await auth())?.user?.id;
+  if (!userId) {
+    return ERROR_MESSAGES.SOMETHING_WENT_WRONG;
+  }
+
   const { error } = await addCategory({
     user_id: userId,
     parent_id: parentId,
@@ -40,7 +46,6 @@ export const createCategory = async ({
 
 interface UpdateCategoryParams {
   id: string;
-  userId: string;
   name: string;
   type: string;
   parentId?: string | null;
@@ -48,13 +53,18 @@ interface UpdateCategoryParams {
 
 export const updateCategory = async ({
   id,
-  userId,
   name,
   type,
   parentId = null,
 }: UpdateCategoryParams): Promise<void | string> => {
-  const { error } = await editCategory({
+  const userId = (await auth())?.user?.id;
+  if (!userId) {
+    return ERROR_MESSAGES.SOMETHING_WENT_WRONG;
+  }
+
+  const { error, found } = await editCategory({
     id,
+    user_id: userId,
     name,
     type: type as FinanceType,
     parent_id: parentId,
@@ -64,14 +74,27 @@ export const updateCategory = async ({
     return error.message;
   }
 
+  if (!found) {
+    return ERROR_MESSAGES.SOMETHING_WENT_WRONG;
+  }
+
   updateTag(`${CACHE_TAGS.CATEGORIES}/${userId}`);
 };
 
-export const deleteCategory = async (categoryId: string, userId: string): Promise<void | string> => {
-  const { error } = await removeCategory(categoryId);
+export const deleteCategory = async (categoryId: string): Promise<void | string> => {
+  const userId = (await auth())?.user?.id;
+  if (!userId) {
+    return ERROR_MESSAGES.SOMETHING_WENT_WRONG;
+  }
+
+  const { error, found } = await removeCategory(categoryId, userId);
 
   if (error) {
     return error.message;
+  }
+
+  if (!found) {
+    return ERROR_MESSAGES.SOMETHING_WENT_WRONG;
   }
 
   updateTag(`${CACHE_TAGS.CATEGORIES}/${userId}`);

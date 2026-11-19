@@ -109,30 +109,61 @@ describe('addCategory', () => {
 });
 
 describe('editCategory', () => {
-  it('returns no error on success', async () => {
-    getSupabase().eq.mockResolvedValueOnce({ error: null });
-    const result = await editCategory({ id: '1', name: 'Updated', type: FinanceType.Expense });
-    expect(result.error).toBeNull();
+  const params = { id: '1', user_id: 'user-1', name: 'Updated', type: FinanceType.Expense };
+
+  it('returns no error and found on success', async () => {
+    getSupabase().select.mockResolvedValueOnce({ data: [{ id: '1' }], error: null });
+    const result = await editCategory(params);
+    expect(result).toEqual({ error: null, found: true });
   });
 
   it('returns error on failure', async () => {
-    getSupabase().eq.mockResolvedValueOnce({ error: 'DB error' });
-    const result = await editCategory({ id: '1', name: 'Updated', type: FinanceType.Expense });
+    getSupabase().select.mockResolvedValueOnce({ data: null, error: 'DB error' });
+    const result = await editCategory(params);
     expect(result.error).toBe('DB error');
+  });
+
+  it('filters update by id and owner', async () => {
+    getSupabase().select.mockResolvedValueOnce({ data: [{ id: '1' }], error: null });
+    await editCategory(params);
+    expect(getSupabase().eq).toHaveBeenCalledWith('id', '1');
+    expect(getSupabase().eq).toHaveBeenCalledWith('user_id', 'user-1');
+  });
+
+  it('only re-parents sub categories owned by the user', async () => {
+    getSupabase().select.mockResolvedValueOnce({ data: [{ id: '1' }], error: null });
+    await editCategory({ ...params, parent_id: '2' });
+    expect(getSupabase().update).toHaveBeenNthCalledWith(1, { parent_id: '2' });
+    expect(getSupabase().eq).toHaveBeenNthCalledWith(1, 'parent_id', '1');
+    expect(getSupabase().eq).toHaveBeenNthCalledWith(2, 'user_id', 'user-1');
+  });
+
+  it('returns found false when no owned row matches', async () => {
+    getSupabase().select.mockResolvedValueOnce({ data: [], error: null });
+    const result = await editCategory({ ...params, id: 'other' });
+    expect(result).toEqual({ error: null, found: false });
   });
 });
 
 describe('removeCategory', () => {
-  it('returns no error on success', async () => {
-    getSupabase().eq.mockResolvedValueOnce({ error: null });
-    const result = await removeCategory('cat-1');
-    expect(result.error).toBeNull();
+  it('returns no error and found on success', async () => {
+    getSupabase().select.mockResolvedValueOnce({ data: [{ id: 'cat-1' }], error: null });
+    const result = await removeCategory('cat-1', 'user-1');
+    expect(result).toEqual({ error: null, found: true });
   });
 
-  it('calls delete with correct id', async () => {
-    getSupabase().eq.mockResolvedValueOnce({ error: null });
-    await removeCategory('cat-1');
+  it('filters delete by id and owner', async () => {
+    getSupabase().select.mockResolvedValueOnce({ data: [{ id: 'cat-1' }], error: null });
+    await removeCategory('cat-1', 'user-1');
     expect(getSupabase().from).toHaveBeenCalledWith('categories');
+    expect(getSupabase().delete).toHaveBeenCalled();
     expect(getSupabase().eq).toHaveBeenCalledWith('id', 'cat-1');
+    expect(getSupabase().eq).toHaveBeenCalledWith('user_id', 'user-1');
+  });
+
+  it('returns found false when no owned row matches', async () => {
+    getSupabase().select.mockResolvedValueOnce({ data: [], error: null });
+    const result = await removeCategory('cat-other', 'user-1');
+    expect(result).toEqual({ error: null, found: false });
   });
 });

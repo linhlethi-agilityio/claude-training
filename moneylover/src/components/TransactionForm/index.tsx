@@ -39,7 +39,8 @@ import { Button, Input, Dropdown } from '@/components';
 const REQUIRED_FIELDS = ['categoryId', 'amount'];
 
 interface TransactionFormProps {
-  userId: string;
+  /** Unused since ML-006: actions read the user from the session. */
+  userId?: string;
   wallets: Wallet[];
   expenseCategories?: Category[];
   incomeCategories?: Category[];
@@ -49,7 +50,6 @@ interface TransactionFormProps {
 }
 
 export const TransactionForm = ({
-  userId,
   wallets,
   expenseCategories = [],
   incomeCategories = [],
@@ -113,8 +113,8 @@ export const TransactionForm = ({
   const handleFormSubmit = (data: TransactionFormData) => {
     startTransition(async () => {
       const error = isEditMode
-        ? await updateTransaction(previewData.id, userId, data)
-        : await createTransaction({ userId, ...data });
+        ? await updateTransaction(previewData.id, data)
+        : await createTransaction(data);
 
       if (error) {
         return showToast({

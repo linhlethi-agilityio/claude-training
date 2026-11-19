@@ -67,7 +67,7 @@ export const CategoryList = ({
     if (!deleteCategoryId) return;
 
     startTransition(async () => {
-      const error = await deleteCategory(deleteCategoryId, userId);
+      const error = await deleteCategory(deleteCategoryId);
 
       setDeleteCategoryId(null);
 

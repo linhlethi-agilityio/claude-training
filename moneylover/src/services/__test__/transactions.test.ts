@@ -45,14 +45,14 @@ describe('getTransactionDetailById', () => {
 
   it('returns transaction detail', async () => {
     getTransactionById.mockResolvedValue(MOCK_TRANSACTIONS_WITH_CATEGORY[0]);
-    const result = await getTransactionDetailById('txn-1');
+    const result = await getTransactionDetailById('txn-1', 'user-1');
     expect(result).toEqual(MOCK_TRANSACTIONS_WITH_CATEGORY[0]);
   });
 
-  it('calls getTransactionById with id', async () => {
+  it('calls getTransactionById with id and owner', async () => {
     getTransactionById.mockResolvedValue(null);
-    await getTransactionDetailById('txn-1');
-    expect(getTransactionById).toHaveBeenCalledWith('txn-1');
+    await getTransactionDetailById('txn-1', 'user-1');
+    expect(getTransactionById).toHaveBeenCalledWith('txn-1', 'user-1');
   });
 });
 

@@ -46,21 +46,32 @@ export const addCategory = async ({ user_id, parent_id, name, type }: Partial<Ca
   return { error };
 };
 
-export const editCategory = async ({ id, name, type, parent_id }: Partial<Category>) => {
+export const editCategory = async ({ id, user_id, name, type, parent_id }: Partial<Category>) => {
   if (parent_id) {
-    await supabase.from('categories').update({ parent_id }).eq('parent_id', id);
+    await supabase
+      .from('categories')
+      .update({ parent_id })
+      .eq('parent_id', id)
+      .eq('user_id', user_id);
   }
 
-  const { error } = await supabase
+  const { data, error } = await supabase
     .from('categories')
     .update({ name, type, parent_id })
-    .eq('id', id);
+    .eq('id', id)
+    .eq('user_id', user_id)
+    .select('id');
 
-  return { error };
+  return { error, found: !!data?.length };
 };
 
-export const removeCategory = async (categoryId: string) => {
-  const { error } = await supabase.from('categories').delete().eq('id', categoryId);
+export const removeCategory = async (categoryId: string, userId: string) => {
+  const { data, error } = await supabase
+    .from('categories')
+    .delete()
+    .eq('id', categoryId)
+    .eq('user_id', userId)
+    .select('id');
 
-  return { error };
+  return { error, found: !!data?.length };
 };

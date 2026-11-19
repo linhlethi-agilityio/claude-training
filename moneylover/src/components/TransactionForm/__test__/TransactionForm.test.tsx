@@ -224,4 +224,48 @@ describe('TransactionForm', () => {
       expect(updateTransaction).toHaveBeenCalled();
     });
   });
+
+  it('shows the amount error with aria-invalid when amount is 0 on blur', async () => {
+    render(<TransactionForm {...defaultProps} />);
+    const amountInput = screen.getByPlaceholderText('0');
+
+    fireEvent.change(amountInput, { target: { value: '0' } });
+    fireEvent.blur(amountInput);
+
+    expect(await screen.findByText('Amount must be greater than 0')).toBeInTheDocument();
+    expect(amountInput).toHaveAttribute('aria-invalid', 'true');
+  });
+
+  it('shows the amount error when amount is cleared on blur', async () => {
+    render(<TransactionForm {...defaultProps} />);
+    const amountInput = screen.getByPlaceholderText('0');
+
+    fireEvent.change(amountInput, { target: { value: '50000' } });
+    fireEvent.change(amountInput, { target: { value: '' } });
+    fireEvent.blur(amountInput);
+
+    expect(await screen.findByText('Amount must be greater than 0')).toBeInTheDocument();
+  });
+
+  it('limits the note input to 255 characters', () => {
+    render(<TransactionForm {...defaultProps} />);
+    expect(screen.getByPlaceholderText('Add a note...')).toHaveAttribute('maxLength', '255');
+  });
+
+  it('shows the note error and does not submit when the note is too long', async () => {
+    (updateTransaction as jest.Mock).mockClear();
+    render(<TransactionForm {...defaultProps} previewData={MOCK_TRANSACTIONS_WITH_CATEGORY[0]} />);
+    const noteInput = screen.getByPlaceholderText('Add a note...');
+
+    // maxLength only limits typing; a programmatic value can still be longer.
+    fireEvent.change(noteInput, { target: { value: 'x'.repeat(256) } });
+    fireEvent.blur(noteInput);
+
+    expect(await screen.findByText('Note must be at most 255 characters')).toBeInTheDocument();
+    expect(noteInput).toHaveAttribute('aria-invalid', 'true');
+    fireEvent.submit(noteInput.closest('form') as HTMLFormElement);
+    await waitFor(() => {
+      expect(updateTransaction).not.toHaveBeenCalled();
+    });
+  });
 });

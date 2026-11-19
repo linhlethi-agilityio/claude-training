@@ -115,4 +115,20 @@ describe('transactionSchema', () => {
   it('passes with income type', () => {
     expect(transactionSchema.safeParse({ ...valid, type: FinanceType.Income }).success).toBe(true);
   });
+
+  it('fails with amount 0 and shows the amount message', () => {
+    const result = transactionSchema.safeParse({ ...valid, amount: 0 });
+    expect(result.success).toBe(false);
+    expect(result.error?.issues[0].message).toBe('Amount must be greater than 0');
+  });
+
+  it('passes with a note of exactly 255 characters', () => {
+    expect(transactionSchema.safeParse({ ...valid, note: 'x'.repeat(255) }).success).toBe(true);
+  });
+
+  it('fails with a note longer than 255 characters', () => {
+    const result = transactionSchema.safeParse({ ...valid, note: 'x'.repeat(256) });
+    expect(result.success).toBe(false);
+    expect(result.error?.issues[0].message).toBe('Note must be at most 255 characters');
+  });
 });

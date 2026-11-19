@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 // Constants
-import { ERROR_MESSAGES } from '@/constants';
+import { ERROR_MESSAGES, NOTE_MAX_LENGTH } from '@/constants';
 
 // Types
 import { FinanceType } from '@/types';
@@ -47,7 +47,9 @@ export const transactionSchema = z.object({
   type: z.enum([FinanceType.Expense, FinanceType.Income]),
   walletId: z.string().nonempty(ERROR_MESSAGES.REQUIRED('Wallet')),
   categoryId: z.string().nonempty(ERROR_MESSAGES.REQUIRED('Category')),
-  amount: z.number({ message: ERROR_MESSAGES.REQUIRED('Amount') }).min(0),
+  amount: z
+    .number({ message: ERROR_MESSAGES.REQUIRED('Amount') })
+    .positive(ERROR_MESSAGES.AMOUNT_NOT_POSITIVE),
   date: z.string().nonempty(ERROR_MESSAGES.REQUIRED('Date')),
-  note: z.string().optional(),
+  note: z.string().max(NOTE_MAX_LENGTH, ERROR_MESSAGES.NOTE_TOO_LONG(NOTE_MAX_LENGTH)).optional(),
 });

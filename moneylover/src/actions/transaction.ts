@@ -3,13 +3,16 @@
 import { updateTag } from 'next/cache';
 
 // Constants
-import { CACHE_TAGS } from '@/constants';
+import { CACHE_TAGS, ERROR_MESSAGES, NOTE_MAX_LENGTH } from '@/constants';
 
 // Types
 import { TransactionFormData } from '@/types';
 
 // Libs
 import { addTransaction, editTransaction, removeTransaction, getTransactionById } from '@/libs';
+
+const validateNote = (note?: string): string | undefined =>
+  note && note.length > NOTE_MAX_LENGTH ? ERROR_MESSAGES.NOTE_TOO_LONG(NOTE_MAX_LENGTH) : undefined;
 
 interface CreateTransactionParams extends TransactionFormData {
   userId: string;
@@ -25,6 +28,11 @@ export const createTransaction = async ({
   date,
   note,
 }: CreateTransactionParams): Promise<void | string> => {
+  const noteError = validateNote(note);
+  if (noteError) {
+    return noteError;
+  }
+
   const { error } = await addTransaction({
     user_id: userId,
     wallet_id: walletId,
@@ -49,6 +57,11 @@ export const updateTransaction = async (
   data: TransactionFormData,
 ): Promise<void | string> => {
   const { walletId, categoryId, type, amount, date, note } = data;
+  const noteError = validateNote(note);
+  if (noteError) {
+    return noteError;
+  }
+
   const { error } = await editTransaction(id, {
     wallet_id: walletId,
     category_id: categoryId,

@@ -98,7 +98,7 @@ exports[`TransactionsContent should render TransactionList with data and match s
           15
         </p>
         <div
-          class="flex-1"
+          class="min-w-0 flex-1"
         >
           <p
             class="text-sm text-gray-700"
@@ -106,7 +106,7 @@ exports[`TransactionsContent should render TransactionList with data and match s
             Friday, March 15, 2024
           </p>
           <p
-            class="text-xs text-gray-400"
+            class="truncate text-xs text-gray-400"
           >
             Lunch
           </p>
@@ -164,7 +164,7 @@ exports[`TransactionsContent should render TransactionList with data and match s
           10
         </p>
         <div
-          class="flex-1"
+          class="min-w-0 flex-1"
         >
           <p
             class="text-sm text-gray-700"
@@ -225,7 +225,7 @@ exports[`TransactionsContent should render TransactionList with data and match s
           1
         </p>
         <div
-          class="flex-1"
+          class="min-w-0 flex-1"
         >
           <p
             class="text-sm text-gray-700"
@@ -233,7 +233,7 @@ exports[`TransactionsContent should render TransactionList with data and match s
             Friday, March 1, 2024
           </p>
           <p
-            class="text-xs text-gray-400"
+            class="truncate text-xs text-gray-400"
           >
             Monthly salary
           </p>

@@ -9,7 +9,7 @@ Review in this order and do not skip a section. A clean section gets one line ("
 
 ## 0. Scope the review
 
-- Diff: `gh pr diff <n>` for a PR, or `git diff github/main...HEAD` locally (in a GitHub Actions checkout the remote is `origin`, so use `origin/main` there) for the current branch, or the MR/PR the user names (`gh pr diff <n>` on GitHub).
+- Diff: `gh pr diff <n>` for the PR the user names, or `git diff github/main...HEAD` for the current branch. In a GitHub Actions checkout the remote is `origin`, so use `origin/main` there.
 - Ticket: the branch name holds the id (`fix/ML-004-...`). Read `notes/tickets/<ID>-*.md`; its acceptance criteria are the spec.
 - Read the changed files in full, not only the hunks, and the callers of any changed function.
 

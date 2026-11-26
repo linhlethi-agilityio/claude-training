@@ -1,6 +1,6 @@
 ---
 name: review-checklist
-description: Review a branch, MR/PR or diff with the team checklist from Day 3 (correctness → tests → readability → security basics → scope). Use when the user asks to review code, an MR or PR, a branch before merge, or to self-review before opening an MR. Also use to triage findings from /code-review or /security-review.
+description: Review a branch, PR or diff with the team checklist from Day 3 (correctness → tests → readability → security basics → scope). Use when the user asks to review code, a PR, a branch before merge, or to self-review before opening a PR. Also use to triage findings from /code-review, /security-review or the Claude review on a PR.
 ---
 
 # Team review checklist
@@ -48,7 +48,7 @@ Review in this order and do not skip a section. A clean section gets one line ("
 - Only files the ticket needs. No unrelated refactor or formatting churn.
 - No change to `supabase/migrations/` or the schema unless the ticket says so.
 - Commits: Conventional Commits with the ticket id, small, test + fix together.
-- MR description has What / Why / How tested / Screenshots / Out of scope.
+- PR description has What / Why / How tested / Out of scope, plus Screenshots for UI changes.
 
 ## Output
 
@@ -63,6 +63,6 @@ End with a verdict: **Approve** or **Request changes**, and the test/lint result
 
 Rules:
 
-- Every comment must be actionable. When reviewing someone else's MR, aim for at least 3 actionable comments, but never invent issues to reach a number.
+- Every comment must be actionable. When reviewing someone else's PR, aim for at least 3 actionable comments, but never invent issues to reach a number.
 - When triaging /code-review or /security-review output, mark each finding Confirmed / False positive (with the reason) so false positives can be noted for the retro.
 - Do not edit code during a review unless the user asks. Ask before posting comments on GitHub.

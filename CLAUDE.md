@@ -8,9 +8,14 @@ Training repo. The app lives in `moneylover/` (Next.js 16 + React 19 + Supabase 
 - Test: `pnpm test` · single file: `pnpm jest <path>` · Lint: `pnpm lint`
 - Build: `pnpm build`. Needs `.env.local` (copy `.env.sample`); see ticket ML-001.
 - Git hooks: pre-commit runs lint + all tests; pre-push runs `build`.
-- Fixing a ticket: follow the `fix-ticket` skill. Reviewing a branch or PR: follow the `review-checklist` skill.
-- Capstone (`notes/capstone/`): ask questions only in the tickets; intake with the `ticket-intake` skill.
-- Remote: `github` (GitHub) only: PRs, CI, Claude review and merges all happen there. After a PR is merged: `/sync-main`.
+- Ticket flow, one step per tool:
+  1. Decide: `ticket-intake` (is it ready?), `brainstorming` (approaches), `/grill-me` (stress-test). Decisions go into the ticket.
+  2. Build: `fix-ticket` (branch, failing test, fix, verify, commit).
+  3. Review: `/code-review`, then triage every finding with `review-checklist`.
+  4. Ship: `/open-pr` (push, PR, CI + Claude review triage). I merge on GitHub, then `/sync-main`.
+- Capstone (`notes/capstone/`): ask questions only in the tickets.
+- Parallel work: before running tickets in parallel worktrees, check which files each one touches. Tickets that share files can't run in parallel as split; split them by layer or file, or order them.
+- Remote: `github` (GitHub) only: PRs, CI, Claude review and merges all happen there.
 - Hooks (`.claude/settings.json`): Bash commands from "Never do" are blocked; edited files in `moneylover/` are formatted with Prettier.
 - Browser checks: `playwright` MCP server (`.mcp.json`, uses Edge). Start `pnpm dev` first, then drive http://localhost:3000.
 
@@ -27,7 +32,8 @@ Training repo. The app lives in `moneylover/` (Next.js 16 + React 19 + Supabase 
 - Prettier: single quotes, semicolons, trailing commas, width 100.
 - Tests sit next to the code in `__test__/`; anything that renders "today" needs a frozen clock (`jest.useFakeTimers({ now })`).
 - Conventional Commits with ticket id: `fix(ML-003): ...`, `docs: ...`. One branch per ticket, small commits.
-- Repo content (code, notes, tickets, commits, MRs) is in English.
+- Repo content (code, notes, tickets, commits, PRs) is in English.
+- Notes, reports and release notes use facts from git, tickets and transcripts only. A number or result you can't find is written as TODO, never guessed.
 
 ## Never do
 

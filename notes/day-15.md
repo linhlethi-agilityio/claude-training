@@ -52,7 +52,16 @@ Proposed repo issues (owner: Linh Le unless the team picks someone else):
 
 ## 4. Personal playbook
 
-- Draft: [`notes/playbook.md`](playbook.md). Edit it into my own words, then publish it as an artifact and share the link.
+- Published: https://claude.ai/artifact/BuFAh7qUre7DSgxJJsBCTJ (short version in [`notes/playbook.md`](playbook.md)).
+
+### Lead feedback on the playbook (Phuong, 26 Nov)
+
+| Feedback | What I found | Change |
+|---|---|---|
+| Which prompts can I stop typing, and how? | All 5. Two were already covered by skill descriptions; "don't invent" was not in CLAUDE.md; "don't push" was only advice because my local permissions allowed `git push`. | Skill steps, a CLAUDE.md rule, `git push` set to ask, `/open-pr` command |
+| The tickets waited on each other because of how I split them | ML-006 and ML-007 both changed `actions/transaction.ts`, its test and `TransactionForm`. | CLAUDE.md rule: check file overlap before parallel work; dependency check in `brainstorming` and `grilling` |
+| Use brainstorming and grill-me for planning | Not installed. `brainstorming` comes from obra/superpowers, `grill-me` from mattpocock/skills (both MIT). | Added to `.claude/skills/` (brainstorming adapted, grill-me as is), with `THIRD_PARTY_NOTICES.md` |
+| fix-ticket does too much | It had 7 steps, from deciding to opening the PR. | Cut to build only; deciding moved to brainstorming / grill-me, the PR to `/open-pr` |
 
 ## Final checkpoint: company-ready
 

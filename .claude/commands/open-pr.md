@@ -1,0 +1,14 @@
+---
+description: Push the current branch to GitHub, open a pull request, and triage the CI and Claude review results
+argument-hint: "[ticket id, e.g. ML-008]"
+allowed-tools: Bash(git status:*), Bash(git branch:*), Bash(git log:*), Bash(git diff:*), Bash(git push -u github:*), Bash(gh pr create:*), Bash(gh pr view:*), Bash(gh pr checks:*), Bash(gh api repos/linhlethi-agilityio/claude-training/pulls/*)
+---
+
+Open a pull request for the current branch. Running this command is my request to push this branch (never `main`).
+
+1. Check: the branch is not `main`, `git status --porcelain` is clean, and the branch has commits that `github/main` doesn't. Otherwise stop and say why.
+2. Check the review step happened: if this session has `/code-review` findings that are not triaged yet, triage them first with the `review-checklist` skill and show the result.
+3. `git push -u github <branch>`.
+4. `gh pr create --repo linhlethi-agilityio/claude-training --base main --head <branch>` with a title in Conventional Commits form (with the ticket id from $ARGUMENTS or the branch name) and an English description: **What / Why / How tested / Out of scope**, with test counts and before/after examples. End the description with the Claude Code attribution line. Tell me to edit it by hand.
+5. Wait for the checks (`gh pr checks <n> --watch`), then read the Claude review: the PR comments and the inline comments (`gh api repos/linhlethi-agilityio/claude-training/pulls/<n>/comments`). Triage every finding with `review-checklist`, checking each one in the code, including the ones marked "Verified".
+6. Reply in one short block: PR link, check results, and the triage table (finding, Confirmed / False positive, proposed action). Do not fix anything, reply on GitHub, or merge unless I ask. I merge.

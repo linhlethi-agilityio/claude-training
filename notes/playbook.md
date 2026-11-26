@@ -1,44 +1,48 @@
 # How I work with Claude — Linh Le (Developer)
 
-Draft from three weeks of training on the `claude-training` repo (21 merged MRs, tickets ML-001 to ML-007). One page.
+Full page: https://claude.ai/artifact/BuFAh7qUre7DSgxJJsBCTJ. This file is the short version kept in the repo.
 
-## My default flow
+## Flow: one step per tool
 
-1. **Ticket first.** Every change starts from a ticket in `notes/tickets/`. Questions go into the ticket's `## Open questions`, never only into chat. Decisions are written next to them before any code.
-2. **Plan mode in a fresh worktree.** One session, one worktree, one branch per ticket. I read the plan against the ticket's decisions before approving it.
-3. **Test first.** "Write the failing test, show me it fails for the right reason, then fix." Snapshot updates only after I've read each diff.
-4. **Review before the MR.** `/code-review`, then triage with the `review-checklist` skill: Confirmed / False positive, then fix, follow-up ticket, or accept. Nothing merges with untriaged findings.
-5. **Ship.** Conventional Commits with the ticket id, MR on GitLab, I merge, then `/sync-remotes` to the GitHub mirror.
+| Step | Tool | What I type |
+|---|---|---|
+| Is the ticket ready? | `ticket-intake` skill | `Is ML-008 ready to build?` |
+| Approaches | `brainstorming` skill | `Brainstorm ML-008` |
+| Stress-test | `/grill-me` | `/grill-me` |
+| Build | `fix-ticket` skill | `Fix ML-008` |
+| Review | `/code-review`, then `review-checklist` triage | `/code-review` |
+| Ship | `/open-pr` (push, PR, CI + Claude review triage) | `/open-pr ML-008` |
+| After merge | `/sync-main` | `/sync-main` |
 
-## Prompts I reuse
+Decisions live in the ticket, never only in chat. I merge on GitHub; Claude never merges.
 
-- "Fix ML-xxx with the fix-ticket skill. Follow the decisions in the ticket. Plan first."
-- "Triage the findings with the review-checklist skill."
-- "Check CAP-xxx with the ticket-intake skill." (zero-questions test before building)
-- "Use git log and the tickets only, don't invent anything." (release notes, reports)
-- "Commit only, don't push."
+## Prompts I no longer type
+
+| Old prompt | Replaced by |
+|---|---|
+| "Fix [ticket] with the fix-ticket skill. Follow the decisions. Plan first." | Skill description triggers on "Fix ML-xxx"; the skill follows the ticket's decisions and shows a plan first. |
+| "Triage the findings with the review-checklist skill." | A fixed step in `/open-pr`; the Claude review on every PR follows the same checklist. |
+| "Check [story] with the ticket-intake skill." | Skill description triggers on "is it ready to build?". |
+| "Use git log and the tickets only, don't invent anything." | Standing rule in CLAUDE.md. |
+| "Commit only, don't push." | `git push` needs my approval (local permission set to ask); `/open-pr` is how I ask for a push. |
+
+Rule of thumb: a skill description replaces "use skill X", a skill step replaces a repeated instruction, CLAUDE.md holds standing rules, and permissions, hooks and the GitHub ruleset enforce what must never happen.
+
+## Parallel work
+
+Tickets run in parallel only if they touch different files. ML-006 and ML-007 both changed `actions/transaction.ts`, its test and `TransactionForm`, so ML-006 had to wait for ML-007. Check overlap while brainstorming, then split by layer or file, or order the tickets.
 
 ## Guardrails
 
-- **Hooks enforce, not memory:** `block-forbidden.sh` blocks `--no-verify`, force push, commits on `main`, `jest -u`, adding `.env*`. `format-on-edit.sh` runs Prettier on every edit.
-- **Git hooks:** pre-commit runs lint and all tests, pre-push runs the build.
-- **Secrets:** I type passwords in the browser myself; `.env.local` never goes into chat or a commit.
-- **Push and merge are mine.** Claude commits; I read the diff, push and merge.
-- **Facts, not guesses:** reports and notes come from git, tickets and transcripts. If a number isn't real, it's a TODO.
+- Hooks: `block-forbidden` (no `--no-verify`, force push, direct push to `main`, commits on `main`, `jest -u`, `.env*`), `format-on-edit` (Prettier).
+- Git hooks: pre-commit lint + tests, pre-push build.
+- GitHub: `Tests` workflow and Claude review on every PR; ruleset on `main` (PR required, `unit` must pass, no force push).
+- Secrets go only into the program that asks for them (browser, `gh secret set`), never into chat.
 
 ## Mistakes I don't want to repeat
 
-- Ran `jest -u` in the main checkout instead of the worktree → check the branch in the prompt before every command.
-- Merged ML-007 with 7 untriaged review findings, and ML-006 with no review.
-- Planned two tickets "in parallel" but ran them one after the other.
-
-## Tools that earned their place
-
-| Tool | Use |
-|---|---|
-| Skills (`fix-ticket`, `review-checklist`, `ticket-intake`) | Team workflow without retyping it |
-| Hooks | Guardrails that work even in a session that forgot the rules |
-| Playwright MCP | Found ML-007, a bug every unit test missed |
-| Worktrees + plan mode | Isolated, reviewable work per ticket |
-| `/loop` | Watching an MR while I work on something else (git only, no `glab` yet) |
-| Artifacts | Release notes and this playbook, shared by link |
+- Ran `jest -u` in the wrong checkout: check the branch first.
+- Merged with untriaged review findings, and a security fix with no review.
+- Trusted a "Verified" review finding that named a file that doesn't exist.
+- Pasted a token into chat.
+- Split two tickets that shared files and called it parallel work.

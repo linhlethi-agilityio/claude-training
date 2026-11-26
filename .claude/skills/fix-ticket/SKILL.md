@@ -1,55 +1,36 @@
 ---
 name: fix-ticket
-description: Fix a bug ticket from notes/tickets/ (e.g. ML-004) using the team workflow - plan, branch, failing test first, minimal fix, verify, update the ticket, open an MR. Use when the user asks to fix, implement or work on an ML-xxx ticket.
+description: Build the fix for a ticket from notes/tickets/ (e.g. ML-004) whose decisions are already written - branch, failing test first, minimal fix, verify, update the ticket, commit. Use when the user asks to fix, implement or work on an ML-xxx ticket.
 ---
 
 # Fix a ticket
 
-Follow these steps in order. Stop and ask the user when a step says so.
+Build only. Deciding what to build happens before (`ticket-intake`, `brainstorming`, `/grill-me`); review and the pull request happen after (`/code-review` + `review-checklist`, then `/open-pr`).
 
-## 1. Read and plan
+## 1. Check the ticket is ready
 
 - Read the ticket in `notes/tickets/<ID>-*.md` and the files it names.
-- Reproduce the bug first (unit level with a temporary test, or `pnpm build` / the UI). Do not trust the ticket's hypotheses until you have run them.
-- Answer each open question with the smallest reasonable choice and say it is an assumption. If an answer changes the DB schema, `supabase/migrations/`, or more than ~3 files, stop and ask.
-- Present the plan: files to change, the failing test, how you will verify. Wait for approval.
+- Every open question must have a **Decision:** line. Follow the decisions; never re-decide them. If one is missing, or the approach is still open, stop and suggest the `brainstorming` skill or `/grill-me` instead of guessing.
+- Reproduce the bug first (a temporary test, `pnpm build` or the UI). Don't trust the ticket's hypotheses until you have run them.
+- Show a short plan: files to change, the failing test, how you'll verify. Wait for approval.
 
 ## 2. Branch
 
-- `git switch -c fix/<ID>-<short-slug>` from an up-to-date `main`. Never work on `main`.
+`git switch -c fix/<ID>-<short-slug>` from an up-to-date `main`, as its own command. Never work on `main`.
 
 ## 3. Failing test, then fix
 
-- Add the test next to the code in `__test__/`. Run only that file (`pnpm jest <path>`) and confirm it fails **for the right reason**. Record the failure message.
-- Make the smallest fix that passes it. Do not refactor unrelated code.
-- Anything that depends on "today" needs `jest.useFakeTimers({ now })`. Never run `jest -u` to make a snapshot pass.
+- Add the test next to the code in `__test__/`. Run only that file (`pnpm jest <path>`) and confirm it fails **for the right reason**.
+- Make the smallest fix that passes it. No unrelated refactoring.
+- Anything that depends on "today" needs `jest.useFakeTimers({ now })`. Never run `jest -u` to make a snapshot pass; show the snapshot diff and let the user decide.
 
 ## 4. Verify
 
-From `moneylover/`:
+From `moneylover/`: `pnpm test` and `pnpm lint`, plus `pnpm build` if the change touches config, env or server code. In a worktree, run `pnpm install` and copy `.env.local` from the main checkout first (gitignored; never commit it).
 
-- `pnpm test` (all green) and `pnpm lint` (no warnings).
-- `pnpm build` if the change touches config, env, or server code. In a worktree, copy `.env.local` from the main checkout first (it is gitignored; never commit it).
+## 5. Update the ticket and commit
 
-## 5. Update the ticket
+- Ticket: `Status` → `Fixed on branch fix/<ID>-...`; tick only the acceptance criteria you verified.
+- Commits (Conventional Commits, never `--no-verify`): `fix(<ID>): <what changed>` with its test, then `docs(<ID>): <ticket update>`.
 
-In the ticket file: set `Status` to `Fixed on branch fix/<ID>-...`, add a short "Decision" section for the assumptions you made, and tick the acceptance criteria that are met. Leave unchecked anything you did not verify (e.g. UI checks).
-
-## 6. Commit
-
-Conventional Commits with the ticket id, small commits:
-
-- `fix(<ID>): <what changed>` (fix + its test together, because the pre-commit hook runs all tests)
-- `docs(<ID>): <ticket update>`
-
-Never use `--no-verify`.
-
-## 7. Pull request
-
-Only when the user asks to push:
-
-- `git push -u github <branch>`, then `gh pr create --repo linhlethi-agilityio/claude-training --base main --head <branch>`.
-- The PR runs the `Tests` workflow (lint, tests, build) and the Claude Code review. Triage the review findings (Confirmed / False positive) with the `review-checklist` skill before the user merges.
-- After the merge, `/sync-main` updates local `main`.
-
-Write the description in English: **What / Why / How tested / Screenshots / Out of scope**, with before/after examples and the test counts. Tell the user to edit it by hand. Never merge; the user merges on GitHub.
+Then tell the user the next step: `/code-review`, triage with `review-checklist`, and `/open-pr` when they want to push.

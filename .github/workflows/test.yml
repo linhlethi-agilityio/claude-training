@@ -46,6 +46,7 @@ jobs:
           cache-dependency-path: moneylover/pnpm-lock.yaml
 
       - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
       - run: pnpm lint
       - run: pnpm test --ci
       - run: pnpm build

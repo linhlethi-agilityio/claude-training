@@ -26,11 +26,11 @@ Build only. Deciding what to build happens before (`ticket-intake`, `brainstormi
 
 ## 4. Verify
 
-From `moneylover/`: `pnpm test` and `pnpm lint`, plus `pnpm build` if the change touches config, env or server code. In a worktree, run `pnpm install` and copy `.env.local` from the main checkout first (gitignored; never commit it).
+From `moneylover/`: `pnpm check` (typecheck + lint + tests) until it passes, plus `pnpm build` if the change touches config, env or server code. In a worktree, run `pnpm install` and copy `.env.local` from the main checkout first (gitignored; never commit it).
 
 ## 5. Update the ticket and commit
 
 - Ticket: `Status` → `Fixed on branch fix/<ID>-...`; tick only the acceptance criteria you verified.
 - Commits (Conventional Commits, never `--no-verify`): `fix(<ID>): <what changed>` with its test, then `docs(<ID>): <ticket update>`.
 
-Then tell the user the next step: `/code-review`, triage with `review-checklist`, and `/open-pr` when they want to push.
+Then tell the user the next step: the `verifier` subagent on the ticket, `/code-review`, triage with `review-checklist`, and `/open-pr` when they want to push.

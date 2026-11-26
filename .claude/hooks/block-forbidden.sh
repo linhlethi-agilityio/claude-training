@@ -27,6 +27,12 @@ has "${S}(jest|pnpm[[:space:]]+(test|jest))[[:space:]](.*[[:space:]])?(-u|--upda
 has "${S}git[[:space:]]+add${E}.*\.env(\.[A-Za-z0-9_-]+)?${E}" && ! has '\.env\.sample' &&
   block "only .env.sample may be committed."
 has "${S}git[[:space:]]+add[[:space:]](.*[[:space:]])?(-f|--force)${E}" && block "git add --force bypasses .gitignore (env files, screenshots)."
+has "${S}git[[:space:]]+reset[[:space:]](.*[[:space:]])?--hard${E}" &&
+  block "git reset --hard throws away uncommitted work. Ask the user, or use a WIP commit."
+has "${S}git[[:space:]]+clean[[:space:]](.*[[:space:]])?-[a-zA-Z]*f" &&
+  block "git clean -f deletes untracked files for good. Ask the user first."
+has "${S}git[[:space:]]+branch[[:space:]](.*[[:space:]])?(-D|--delete[[:space:]]+--force|--force[[:space:]]+--delete)${E}" &&
+  block "git branch -D deletes unmerged work. Use git branch -d (merged only) or ask the user."
 
 if has "${S}git[[:space:]]+commit${E}" && [ -n "$cwd" ] && [ -d "$cwd" ]; then
   branch=$(git -C "$cwd" symbolic-ref --short HEAD 2>/dev/null || true)

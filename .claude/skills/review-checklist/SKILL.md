@@ -12,6 +12,8 @@ Review in this order and do not skip a section. A clean section gets one line ("
 - Diff: `gh pr diff <n>` for the PR the user names, or `git diff github/main...HEAD` for the current branch. In a GitHub Actions checkout the remote is `origin`, so use `origin/main` there.
 - Ticket: the branch name holds the id (`fix/ML-004-...`). Read `notes/tickets/<ID>-*.md`; its acceptance criteria are the spec.
 - Read the changed files in full, not only the hunks, and the callers of any changed function.
+- Read `REVIEW.md` at the repo root: it defines what counts as **Important**, what to skip, and caps nits at 5. Its rules win over this checklist where they differ.
+- Start the report with the **3 riskiest spots** in the diff (`file:line` and why), so the human reads those first.
 
 ## 1. Correctness
 

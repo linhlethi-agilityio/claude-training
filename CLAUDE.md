@@ -5,13 +5,14 @@ Training repo. The app lives in `moneylover/` (Next.js 16 + React 19 + Supabase 
 ## Commands (run from `moneylover/`, use pnpm)
 
 - Install: `pnpm install` · Dev: `pnpm dev` (http://localhost:3000)
-- Test: `pnpm test` · single file: `pnpm jest <path>` · Lint: `pnpm lint`
+- **Verify your work with `pnpm check`** (typecheck + lint + all tests). Run it until it passes before saying a change is done.
+- Test: `pnpm test` · single file: `pnpm jest <path>` · Lint: `pnpm lint` · Types: `pnpm typecheck`
 - Build: `pnpm build`. Needs `.env.local` (copy `.env.sample`); see ticket ML-001.
-- Git hooks: pre-commit runs lint + all tests; pre-push runs `build`.
+- Git hooks: pre-commit runs `pnpm check`; pre-push runs `build`.
 - Ticket flow, one step per tool:
   1. Decide: `ticket-intake` (is it ready?), `brainstorming` (approaches), `/grill-me` (stress-test). Decisions go into the ticket.
   2. Build: `fix-ticket` (branch, failing test, fix, verify, commit).
-  3. Review: `/code-review`, then triage every finding with `review-checklist`.
+  3. Review: the `verifier` subagent checks the change against the ticket; `/code-review`; then triage every finding with `review-checklist` against `REVIEW.md`.
   4. Ship: `/open-pr` (push, PR, CI + Claude review triage). I merge on GitHub, then `/sync-main`.
 - Capstone (`notes/capstone/`): ask questions only in the tickets.
 - Parallel work: before running tickets in parallel worktrees, check which files each one touches. Tickets that share files can't run in parallel as split; split them by layer or file, or order them.

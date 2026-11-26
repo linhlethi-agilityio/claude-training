@@ -1,0 +1,52 @@
+name: Tests
+
+# Regression suite for the moneylover app: lint, unit tests and a production build.
+# Same checks as the local git hooks (pre-commit: lint + tests, pre-push: build).
+# Runs on the GitHub mirror only; GitLab has no CI runner yet.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    working-directory: moneylover
+
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      # Skip installing git hooks in CI (the `prepare` script runs husky).
+      HUSKY: '0'
+      # Dummy values: the build needs these to be set (ML-001), not real.
+      # Never put real keys here; use repository secrets if a job ever needs them.
+      NEXT_PUBLIC_SUPABASE_URL: http://localhost:54321
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ci-dummy-anon-key
+      NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ci-dummy-publishable-key
+      AUTH_SECRET: ci-dummy-auth-secret
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: moneylover/pnpm-lock.yaml
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm test --ci
+      - run: pnpm build

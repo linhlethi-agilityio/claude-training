@@ -1,0 +1,61 @@
+name: Claude Code
+
+# Runs Claude when I mention @claude in an issue, a PR comment or a PR review on the GitHub mirror.
+# Based on the claude.yml template from anthropics/claude-code-action (v1).
+# GitLab (origin) is the source of truth: anything Claude pushes here goes to a branch on GitHub,
+# and is brought to GitLab through a normal MR. Never merge on GitHub.
+#
+# Note: the job's `permissions` only limit GITHUB_TOKEN. The action authenticates with the
+# Claude GitHub App, which can push branches and comment, so limits live in the prompt below.
+
+on:
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+  issues:
+    types: [opened, assigned]
+  pull_request_review:
+    types: [submitted]
+
+concurrency:
+  group: claude-${{ github.event.issue.number || github.event.pull_request.number }}
+  cancel-in-progress: false
+
+jobs:
+  claude:
+    # Only the repo owner can trigger it, and only with an explicit @claude.
+    if: |
+      github.actor == github.repository_owner && (
+        (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
+        (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
+        (github.event_name == 'pull_request_review' && contains(github.event.review.body, '@claude')) ||
+        (github.event_name == 'issues' && (contains(github.event.issue.body, '@claude') || contains(github.event.issue.title, '@claude')))
+      )
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      pull-requests: read
+      issues: read
+      id-token: write
+      actions: read # Required for Claude to read CI results on PRs
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      - name: Run Claude Code
+        id: claude
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+
+          # Lets Claude read CI results (test.yml, claude-code-review.yml) on PRs
+          additional_permissions: |
+            actions: read
+
+          # Follow the repo rules (CLAUDE.md) and never push to main
+          claude_args: |
+            --append-system-prompt "Follow CLAUDE.md. Never push to main or merge a pull request. Work on a branch, keep the change to what the comment asks, use Conventional Commits with the ticket id when there is one, and say in your reply which tests you ran."

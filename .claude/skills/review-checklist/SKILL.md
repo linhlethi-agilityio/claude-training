@@ -56,7 +56,7 @@ Review in this order and do not skip a section. A clean section gets one line ("
 
 One list, most severe first. Each item:
 
-- **Severity:** Blocker / Should fix / Nit
+- **Severity:** Important / Should fix / Nit (as in `REVIEW.md`; Important must be fixed before merge)
 - **Where:** `path:line`
 - **What and why**, then **Suggested fix** (concrete, small)
 - **Status:** Verified (reproduced or run) or Suspected

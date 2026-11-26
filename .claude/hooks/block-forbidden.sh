@@ -29,10 +29,13 @@ has "${S}git[[:space:]]+add${E}.*\.env(\.[A-Za-z0-9_-]+)?${E}" && ! has '\.env\.
 has "${S}git[[:space:]]+add[[:space:]](.*[[:space:]])?(-f|--force)${E}" && block "git add --force bypasses .gitignore (env files, screenshots)."
 has "${S}git[[:space:]]+reset[[:space:]](.*[[:space:]])?--hard${E}" &&
   block "git reset --hard throws away uncommitted work. Ask the user, or use a WIP commit."
-has "${S}git[[:space:]]+clean[[:space:]](.*[[:space:]])?-[a-zA-Z]*f" &&
+has "${S}git[[:space:]]+clean[[:space:]](.*[[:space:]])?(-[a-zA-Z]*f[a-zA-Z]*|--force)${E}" &&
   block "git clean -f deletes untracked files for good. Ask the user first."
-has "${S}git[[:space:]]+branch[[:space:]](.*[[:space:]])?(-D|--delete[[:space:]]+--force|--force[[:space:]]+--delete)${E}" &&
+BR="${S}git[[:space:]]+branch[[:space:]](.*[[:space:]])?"
+if has "${BR}-[a-zA-Z]*D[a-zA-Z]*${E}" ||
+  { has "${BR}(-[a-zA-Z]*d[a-zA-Z]*|--delete)${E}" && has "${BR}(-[a-zA-Z]*f[a-zA-Z]*|--force)${E}"; }; then
   block "git branch -D deletes unmerged work. Use git branch -d (merged only) or ask the user."
+fi
 
 if has "${S}git[[:space:]]+commit${E}" && [ -n "$cwd" ] && [ -d "$cwd" ]; then
   branch=$(git -C "$cwd" symbolic-ref --short HEAD 2>/dev/null || true)

@@ -44,11 +44,12 @@ Conventional Commits with the ticket id, small commits:
 
 Never use `--no-verify`.
 
-## 7. Merge request
+## 7. Pull request
 
 Only when the user asks to push:
 
-- GitLab (graded): `git push -u origin <branch> -o merge_request.create -o merge_request.target=main`
-- GitHub (optional, for `gh`/loop): `git push github <branch>`, then `gh pr create`.
+- GitHub (source of truth): `git push -u github <branch>`, then `gh pr create --repo linhlethi-agilityio/claude-training --base main --head <branch>`.
+- The PR runs the `Tests` workflow (lint, tests, build) and the Claude Code review. Triage the review findings (Confirmed / False positive) with the `review-checklist` skill before the user merges.
+- GitLab (`origin`) is only a mirror for the lead: do not open MRs there. It gets `main` through `/sync-remotes` after the merge.
 
-Write the description in English: **What / Why / How tested / Screenshots / Out of scope**, with before/after examples and the test counts. Tell the user to edit it by hand. Never merge; merging happens on GitLab only.
+Write the description in English: **What / Why / How tested / Screenshots / Out of scope**, with before/after examples and the test counts. Tell the user to edit it by hand. Never merge; the user merges on GitHub.

@@ -1,1 +1,1 @@
-cd moneylover && npm run lint && pnpm test
+cd moneylover && pnpm check

@@ -10,6 +10,8 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "check": "pnpm typecheck && pnpm lint && pnpm test",
     "prepare": "cd .. && husky moneylover/.husky"
   },
   "dependencies": {

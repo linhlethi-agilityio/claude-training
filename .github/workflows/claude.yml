@@ -1,9 +1,8 @@
 name: Claude Code
 
-# Runs Claude when I mention @claude in an issue, a PR comment or a PR review on the GitHub mirror.
+# Runs Claude when I mention @claude in an issue, a PR comment or a PR review.
 # Based on the claude.yml template from anthropics/claude-code-action (v1).
-# GitLab (origin) is the source of truth: anything Claude pushes here goes to a branch on GitHub,
-# and is brought to GitLab through a normal MR. Never merge on GitHub.
+# Anything Claude pushes goes to a branch and reaches main only through a reviewed PR.
 #
 # Note: the job's `permissions` only limit GITHUB_TOKEN. The action authenticates with the
 # Claude GitHub App, which can push branches and comment, so limits live in the prompt below.

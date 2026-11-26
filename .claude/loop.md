@@ -2,7 +2,7 @@ Maintenance pass for the claude-training repo. The app is in `moneylover/` (use 
 
 1. **Unfinished work.** If this session left a task half done (failing test, unfinished edit), finish it first.
 
-2. **Pull request for the current branch.** Remotes: `github` = GitHub (source of truth, PRs, used by `gh`), `origin` = GitLab (mirror for the lead).
+2. **Pull request for the current branch.** Remote: `github` = GitHub (PRs, CI, used by `gh`).
    - Run `gh pr view --json number,state,mergeable,reviewDecision,comments,reviews` for the current branch.
    - New review comments: address each one with a small commit, then reply on the thread saying what changed. If a comment is unclear, reply with a question instead of guessing.
    - Merge conflict with `main`: `git fetch github` and rebase onto `github/main`, resolve, re-run tests. Do not force-push unless I already asked for it in this session.

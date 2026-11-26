@@ -10,7 +10,7 @@ Training repo. The app lives in `moneylover/` (Next.js 16 + React 19 + Supabase 
 - Git hooks: pre-commit runs lint + all tests; pre-push runs `build`.
 - Fixing a ticket: follow the `fix-ticket` skill. Reviewing a branch or PR: follow the `review-checklist` skill.
 - Capstone (`notes/capstone/`): ask questions only in the tickets; intake with the `ticket-intake` skill.
-- Remotes: `github` is the source of truth (PRs, CI, Claude review, merges); `origin` (GitLab) is a mirror for the lead. After a PR is merged on GitHub: `/sync-remotes`.
+- Remote: `github` (GitHub) only: PRs, CI, Claude review and merges all happen there. After a PR is merged: `/sync-main`.
 - Hooks (`.claude/settings.json`): Bash commands from "Never do" are blocked; edited files in `moneylover/` are formatted with Prettier.
 - Browser checks: `playwright` MCP server (`.mcp.json`, uses Edge). Start `pnpm dev` first, then drive http://localhost:3000.
 

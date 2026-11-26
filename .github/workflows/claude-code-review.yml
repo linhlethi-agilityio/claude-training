@@ -1,8 +1,7 @@
 name: Claude Code Review
 
-# Reviews pull requests opened on the GitHub mirror with Claude Code.
+# Reviews pull requests with Claude Code.
 # Based on examples/pr-review-comprehensive.yml in anthropics/claude-code-action (v1).
-# GitLab (origin) is the source of truth and ignores this file; it only runs on GitHub.
 #
 # Setup (repo admin, once):
 #   1. Install the Claude GitHub App on this repo: https://github.com/apps/claude

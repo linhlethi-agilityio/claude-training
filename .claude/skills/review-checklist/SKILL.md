@@ -65,4 +65,4 @@ Rules:
 
 - Every comment must be actionable. When reviewing someone else's MR, aim for at least 3 actionable comments, but never invent issues to reach a number.
 - When triaging /code-review or /security-review output, mark each finding Confirmed / False positive (with the reason) so false positives can be noted for the retro.
-- Do not edit code during a review unless the user asks. Ask before posting comments on GitLab or GitHub.
+- Do not edit code during a review unless the user asks. Ask before posting comments on GitHub.

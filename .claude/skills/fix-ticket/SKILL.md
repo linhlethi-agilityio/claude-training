@@ -48,8 +48,8 @@ Never use `--no-verify`.
 
 Only when the user asks to push:
 
-- GitHub (source of truth): `git push -u github <branch>`, then `gh pr create --repo linhlethi-agilityio/claude-training --base main --head <branch>`.
+- `git push -u github <branch>`, then `gh pr create --repo linhlethi-agilityio/claude-training --base main --head <branch>`.
 - The PR runs the `Tests` workflow (lint, tests, build) and the Claude Code review. Triage the review findings (Confirmed / False positive) with the `review-checklist` skill before the user merges.
-- GitLab (`origin`) is only a mirror for the lead: do not open MRs there. It gets `main` through `/sync-remotes` after the merge.
+- After the merge, `/sync-main` updates local `main`.
 
 Write the description in English: **What / Why / How tested / Screenshots / Out of scope**, with before/after examples and the test counts. Tell the user to edit it by hand. Never merge; the user merges on GitHub.

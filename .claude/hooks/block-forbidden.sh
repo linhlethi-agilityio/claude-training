@@ -20,8 +20,8 @@ E='([[:space:];&|)]|$)' # end of a word
 
 has "${S}--no-verify${E}" && block "--no-verify skips the lint/test/build hooks. Fix the failure instead."
 has "${S}git[[:space:]]+push[[:space:]](.*[[:space:]])?(-f|--force[^[:space:]]*)${E}" && block "never force-push."
-has "${S}git[[:space:]]+push[[:space:]]+(-[^[:space:]]+[[:space:]]+)*origin[[:space:]]+([^[:space:]]+:)?main${E}" &&
-  block "main on GitLab only changes through a merged MR."
+has "${S}git[[:space:]]+push[[:space:]]+(-[^[:space:]]+[[:space:]]+)*github[[:space:]]+([^[:space:]]+:)?main${E}" &&
+  block "main on GitHub only changes through a merged PR. GitLab (origin) gets main from /sync-remotes."
 has "${S}(jest|pnpm[[:space:]]+(test|jest))[[:space:]](.*[[:space:]])?(-u|--updateSnapshot|--ci=false)${E}" &&
   block "never update snapshots to make a test pass; find the cause first."
 has "${S}git[[:space:]]+add${E}.*\.env(\.[A-Za-z0-9_-]+)?${E}" && ! has '\.env\.sample' &&

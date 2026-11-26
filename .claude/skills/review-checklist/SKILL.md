@@ -9,7 +9,7 @@ Review in this order and do not skip a section. A clean section gets one line ("
 
 ## 0. Scope the review
 
-- Diff: `git diff origin/main...HEAD` for the current branch, or the MR/PR the user names (`gh pr diff <n>` on GitHub).
+- Diff: `git diff github/main...HEAD` for the current branch, or the MR/PR the user names (`gh pr diff <n>` on GitHub).
 - Ticket: the branch name holds the id (`fix/ML-004-...`). Read `notes/tickets/<ID>-*.md`; its acceptance criteria are the spec.
 - Read the changed files in full, not only the hunks, and the callers of any changed function.
 
